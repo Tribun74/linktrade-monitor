@@ -3,7 +3,7 @@
  * Plugin Name: Linktrade Monitor
  * Plugin URI: https://github.com/Tribun74/linktrade-monitor
  * Description: Backlink-Verwaltung und -Überwachung für WordPress. Tracking von Linktausch, Linkkauf und kostenlosen Verlinkungen.
- * Version: 1.2.0
+ * Version: 1.2.1
  * Author: Frank Stemmler
  * Author URI: https://frank-stemmler.de
  * License: GPL v2 or later
@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Plugin-Konstanten
-define('LINKTRADE_VERSION', '1.2.0');
+define('LINKTRADE_VERSION', '1.2.1');
 define('LINKTRADE_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('LINKTRADE_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('LINKTRADE_PLUGIN_BASENAME', plugin_basename(__FILE__));
