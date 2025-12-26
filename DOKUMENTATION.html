@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linktrade Monitor - Technische Dokumentation</title>
+    <style>
+        :root {
+            --primary: #1e3a5f;
+            --primary-light: #2d5a8a;
+            --accent: #4a9eff;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #333333;
+            --text-muted: #6c757d;
+            --border: #dee2e6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header .version {
+            background: rgba(255,255,255,0.2);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        header .subtitle {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .nav {
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .nav a {
+            color: var(--primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav a:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        section {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            color: var(--primary-light);
+            margin: 1.5rem 0 1rem;
+        }
+
+        h4 {
+            color: var(--text);
+            margin: 1rem 0 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        ul, ol {
+            margin: 1rem 0 1rem 2rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background: #e9ecef;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+
+        .highlight-php { color: #569cd6; }
+        .highlight-str { color: #ce9178; }
+        .highlight-comment { color: #6a9955; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--primary);
+            color: white;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .badge-success { background: #d4edda; color: #155724; }
+        .badge-warning { background: #fff3cd; color: #856404; }
+        .badge-danger { background: #f8d7da; color: #721c24; }
+        .badge-info { background: #d1ecf1; color: #0c5460; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .card {
+            background: var(--bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent);
+        }
+
+        .card h4 {
+            margin-top: 0;
+        }
+
+        .file-tree {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+
+        .file-tree .folder { color: #dcdcaa; }
+        .file-tree .file { color: #9cdcfe; }
+        .file-tree .php { color: #4ec9b0; }
+
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .alert-info {
+            background: #e7f3ff;
+            border-left: 4px solid var(--accent);
+        }
+
+        .alert-warning {
+            background: #fff8e6;
+            border-left: 4px solid var(--warning);
+        }
+
+        .alert-success {
+            background: #e8f5e9;
+            border-left: 4px solid var(--success);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            .container { padding: 1rem; }
+            section { padding: 1.5rem; }
+            .nav ul { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Linktrade Monitor</h1>
+    <p class="subtitle">Backlink-Verwaltung und -Monitoring für WordPress</p>
+    <span class="version">Version 1.1.0</span>
+</header>
+
+<div class="container">
+    <nav class="nav">
+        <ul>
+            <li><a href="#uebersicht">Übersicht</a></li>
+            <li><a href="#installation">Installation</a></li>
+            <li><a href="#funktionen">Funktionen</a></li>
+            <li><a href="#datenbankstruktur">Datenbank</a></li>
+            <li><a href="#api">AJAX API</a></li>
+            <li><a href="#cron">Cron-Jobs</a></li>
+            <li><a href="#dateistruktur">Dateien</a></li>
+            <li><a href="#konfiguration">Konfiguration</a></li>
+        </ul>
+    </nav>
+
+    <!-- Übersicht -->
+    <section id="uebersicht">
+        <h2>Übersicht</h2>
+        <p>Der <strong>Linktrade Monitor</strong> ist ein WordPress-Plugin zur professionellen Verwaltung und Überwachung von Backlinks. Es unterstützt drei Kategorien:</p>
+
+        <div class="grid">
+            <div class="card">
+                <h4>Linktausch</h4>
+                <p>Gegenseitige Verlinkungen mit Partnern. Das Plugin überwacht sowohl den eingehenden als auch den ausgehenden Link und berechnet einen Fairness-Score.</p>
+            </div>
+            <div class="card">
+                <h4>Linkkauf</h4>
+                <p>Bezahlte Backlinks mit Laufzeitverwaltung, Kosten-Tracking und automatischen Ablauf-Erinnerungen.</p>
+            </div>
+            <div class="card">
+                <h4>Kostenlos</h4>
+                <p>Gratis erhaltene Backlinks (Gastbeiträge, Verzeichnisse, etc.) mit Status-Monitoring.</p>
+            </div>
+        </div>
+
+        <h3>Kernfunktionen</h3>
+        <ul>
+            <li>Automatische Link-Überprüfung (HTTP-Status, nofollow, noindex, sponsored)</li>
+            <li>Gegenseitigkeits-Tracker für Linktausch-Partner</li>
+            <li>Fairness-Score-Berechnung</li>
+            <li>Ablauf-Erinnerungen per E-Mail</li>
+            <li>Kontakt-Historie für Partner-Kommunikation</li>
+            <li>Check-Historie mit Verlauf</li>
+            <li>Dashboard mit Übersicht und Handlungsbedarf</li>
+        </ul>
+    </section>
+
+    <!-- Installation -->
+    <section id="installation">
+        <h2>Installation</h2>
+
+        <h3>Systemvoraussetzungen</h3>
+        <ul>
+            <li>WordPress 6.0 oder höher</li>
+            <li>PHP 8.0 oder höher</li>
+            <li>MySQL 5.7+ oder MariaDB 10.3+</li>
+        </ul>
+
+        <h3>Installationsschritte</h3>
+        <ol>
+            <li>Plugin-Ordner <code>linktrade-monitor</code> nach <code>/wp-content/plugins/</code> kopieren</li>
+            <li>Im WordPress-Admin unter "Plugins" das Plugin aktivieren</li>
+            <li>Das Plugin erstellt automatisch die benötigten Datenbanktabellen</li>
+            <li>Unter "Linktrade" im Admin-Menü die Einstellungen konfigurieren</li>
+        </ol>
+
+        <div class="alert alert-info">
+            <strong>Hinweis:</strong> Bei der Aktivierung werden 5 Datenbanktabellen erstellt und die Standard-Optionen gesetzt.
+        </div>
+    </section>
+
+    <!-- Funktionen -->
+    <section id="funktionen">
+        <h2>Funktionen im Detail</h2>
+
+        <h3>Dashboard</h3>
+        <p>Das Dashboard zeigt eine Übersicht mit:</p>
+        <ul>
+            <li><strong>Statistik-Karten:</strong> Gesamtzahl Links, Online-Status, Warnungen, Offline</li>
+            <li><strong>Neueste Links:</strong> Die 5 zuletzt hinzugefügten Links mit Quick-Actions</li>
+            <li><strong>Ablaufende Links:</strong> Links die in den nächsten 30 Tagen ablaufen</li>
+        </ul>
+
+        <h3>Link-Prüfung</h3>
+        <p>Die Link-Prüfung analysiert:</p>
+        <table>
+            <tr>
+                <th>Prüfpunkt</th>
+                <th>Beschreibung</th>
+                <th>Status bei Problem</th>
+            </tr>
+            <tr>
+                <td>HTTP-Status</td>
+                <td>Erreichbarkeit der Seite (200, 301, 404, etc.)</td>
+                <td><span class="badge badge-danger">Offline</span></td>
+            </tr>
+            <tr>
+                <td>Link vorhanden</td>
+                <td>Ist der Backlink auf der Seite?</td>
+                <td><span class="badge badge-danger">Offline</span></td>
+            </tr>
+            <tr>
+                <td>nofollow</td>
+                <td>Hat der Link rel="nofollow"?</td>
+                <td><span class="badge badge-warning">Warning</span></td>
+            </tr>
+            <tr>
+                <td>noindex</td>
+                <td>Hat die Seite meta noindex?</td>
+                <td><span class="badge badge-warning">Warning</span></td>
+            </tr>
+            <tr>
+                <td>sponsored</td>
+                <td>Hat der Link rel="sponsored"?</td>
+                <td><span class="badge badge-info">Info</span></td>
+            </tr>
+        </table>
+
+        <h3>Fairness-Score (nur Linktausch)</h3>
+        <p>Der Fairness-Score bewertet die Gegenseitigkeit:</p>
+        <table>
+            <tr>
+                <th>Score</th>
+                <th>Situation</th>
+            </tr>
+            <tr>
+                <td><span class="badge badge-success">100</span></td>
+                <td>Beide Links online und dofollow</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-warning">60</span></td>
+                <td>Mein Link dofollow, Partner nofollow</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-warning">50</span></td>
+                <td>Beide Links offline</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-danger">0</span></td>
+                <td>Mein Link online, Partner offline</td>
+            </tr>
+        </table>
+
+        <h3>Alerts-Tab</h3>
+        <p>Der Alerts-Tab zeigt alle Links die Aufmerksamkeit brauchen:</p>
+        <ul>
+            <li>Links mit Status "warning" oder "offline"</li>
+            <li>Linktausch-Partner mit unfairer Gegenseitigkeit</li>
+            <li>In den nächsten 30 Tagen ablaufende Links</li>
+        </ul>
+    </section>
+
+    <!-- Datenbankstruktur -->
+    <section id="datenbankstruktur">
+        <h2>Datenbankstruktur</h2>
+
+        <h3>Tabellen</h3>
+        <table>
+            <tr>
+                <th>Tabelle</th>
+                <th>Beschreibung</th>
+            </tr>
+            <tr>
+                <td><code>wp_linktrade_links</code></td>
+                <td>Haupt-Tabelle mit allen Link-Daten</td>
+            </tr>
+            <tr>
+                <td><code>wp_linktrade_log</code></td>
+                <td>Änderungs-Protokoll (Audit-Log)</td>
+            </tr>
+            <tr>
+                <td><code>wp_linktrade_checks</code></td>
+                <td>Historie aller Link-Prüfungen</td>
+            </tr>
+            <tr>
+                <td><code>wp_linktrade_contacts</code></td>
+                <td>Kontakt-Historie mit Partnern</td>
+            </tr>
+            <tr>
+                <td><code>wp_linktrade_anchors</code></td>
+                <td>Anchor-Text Statistiken</td>
+            </tr>
+        </table>
+
+        <h3>Wichtige Felder (wp_linktrade_links)</h3>
+        <pre><code>/* Partner-Grunddaten */
+partner_name     VARCHAR(255)  - Name des Partners
+partner_contact  VARCHAR(255)  - Kontaktinfo (E-Mail, Social Media, etc.)
+category         ENUM          - 'tausch', 'kauf', 'kostenlos'
+
+/* Eingehender Link */
+partner_url      TEXT          - Seite auf der der Backlink ist
+target_url       TEXT          - Wohin der Backlink zeigt (meine Seite)
+anchor_text      VARCHAR(255)  - Ankertext des Links
+status           ENUM          - 'online', 'warning', 'offline', 'unchecked'
+
+/* Gegenlink (bei Linktausch) */
+backlink_url     TEXT          - Meine Seite mit Gegenlink
+backlink_target  TEXT          - Wohin mein Gegenlink zeigt
+backlink_status  ENUM          - Status des Gegenlinks
+
+/* Bewertung */
+fairness_score   TINYINT       - 0-100 Fairness bei Linktausch
+domain_rating    TINYINT       - DR des Partners (0-100)
+quality_score    TINYINT       - Berechneter Qualitäts-Score</code></pre>
+    </section>
+
+    <!-- AJAX API -->
+    <section id="api">
+        <h2>AJAX API</h2>
+
+        <div class="alert alert-warning">
+            <strong>Sicherheit:</strong> Alle AJAX-Endpoints erfordern einen gültigen Nonce (<code>linktrade_nonce</code>) und Admin-Berechtigung.
+        </div>
+
+        <h3>Verfügbare Endpoints</h3>
+
+        <h4>linktrade_get_links</h4>
+        <p>Holt eine Liste aller Links mit optionalen Filtern.</p>
+        <pre><code>POST /wp-admin/admin-ajax.php
+action: linktrade_get_links
+nonce: {nonce}
+category: tausch|kauf|kostenlos (optional)
+status: online|warning|offline|unchecked (optional)
+search: Suchbegriff (optional)</code></pre>
+
+        <h4>linktrade_get_link</h4>
+        <p>Holt einen einzelnen Link für die Bearbeitung.</p>
+        <pre><code>POST /wp-admin/admin-ajax.php
+action: linktrade_get_link
+nonce: {nonce}
+id: Link-ID</code></pre>
+
+        <h4>linktrade_save_link</h4>
+        <p>Speichert einen neuen Link oder aktualisiert einen bestehenden.</p>
+        <pre><code>POST /wp-admin/admin-ajax.php
+action: linktrade_save_link
+nonce: {nonce}
+id: Link-ID (0 für neu)
+partner_name: Name
+partner_contact: Kontakt
+category: Kategorie
+...weitere Felder</code></pre>
+
+        <h4>linktrade_delete_link</h4>
+        <p>Löscht einen Link.</p>
+        <pre><code>POST /wp-admin/admin-ajax.php
+action: linktrade_delete_link
+nonce: {nonce}
+id: Link-ID</code></pre>
+
+        <h4>linktrade_check_link</h4>
+        <p>Prüft einen Link manuell. Bei Linktausch werden automatisch beide Richtungen geprüft.</p>
+        <pre><code>POST /wp-admin/admin-ajax.php
+action: linktrade_check_link
+nonce: {nonce}
+id: Link-ID</code></pre>
+
+        <h4>linktrade_save_contact</h4>
+        <p>Speichert einen Kontakt-Eintrag.</p>
+        <pre><code>POST /wp-admin/admin-ajax.php
+action: linktrade_save_contact
+nonce: {nonce}
+link_id: Link-ID
+contact_type: email|phone|meeting|other
+direction: incoming|outgoing
+subject: Betreff
+content: Inhalt</code></pre>
+    </section>
+
+    <!-- Cron-Jobs -->
+    <section id="cron">
+        <h2>Cron-Jobs</h2>
+
+        <table>
+            <tr>
+                <th>Hook</th>
+                <th>Intervall</th>
+                <th>Funktion</th>
+            </tr>
+            <tr>
+                <td><code>linktrade_check_links</code></td>
+                <td>Wöchentlich</td>
+                <td>Prüft alle Links in Batches</td>
+            </tr>
+            <tr>
+                <td><code>linktrade_check_reminders</code></td>
+                <td>Täglich</td>
+                <td>Sendet Ablauf-Erinnerungen per E-Mail</td>
+            </tr>
+            <tr>
+                <td><code>linktrade_check_fairness</code></td>
+                <td>Täglich</td>
+                <td>Warnt bei unfairen Linktausch-Partnern</td>
+            </tr>
+        </table>
+
+        <div class="alert alert-info">
+            <strong>Batch-Verarbeitung:</strong> Der Link-Check verarbeitet standardmäßig 50 Links pro Durchlauf mit 3 Sekunden Pause zwischen Requests, um Server nicht zu überlasten.
+        </div>
+    </section>
+
+    <!-- Dateistruktur -->
+    <section id="dateistruktur">
+        <h2>Dateistruktur</h2>
+
+        <div class="file-tree">
+<span class="folder">linktrade-monitor/</span>
+├── <span class="php">linktrade-monitor.php</span>      <span class="comment">// Haupt-Plugin-Datei</span>
+├── <span class="php">uninstall.php</span>              <span class="comment">// Deinstallation (löscht Tabellen)</span>
+├── <span class="folder">assets/</span>
+│   ├── <span class="folder">css/</span>
+│   │   └── <span class="file">admin.css</span>          <span class="comment">// Admin-Styles</span>
+│   └── <span class="folder">js/</span>
+│       └── <span class="file">admin.js</span>           <span class="comment">// Admin-JavaScript</span>
+├── <span class="folder">includes/</span>
+│   ├── <span class="php">class-linktrade.php</span>    <span class="comment">// Haupt-Klasse</span>
+│   ├── <span class="php">class-activator.php</span>    <span class="comment">// Aktivierung (DB-Setup)</span>
+│   ├── <span class="php">class-deactivator.php</span>  <span class="comment">// Deaktivierung (Cron-Cleanup)</span>
+│   ├── <span class="folder">admin/</span>
+│   │   └── <span class="php">class-admin.php</span>    <span class="comment">// Admin-UI und AJAX</span>
+│   ├── <span class="folder">checker/</span>
+│   │   └── <span class="php">class-link-checker.php</span> <span class="comment">// Link-Prüflogik</span>
+│   └── <span class="folder">models/</span>
+│       └── <span class="php">class-link.php</span>     <span class="comment">// Link-Model</span>
+└── <span class="folder">languages/</span>
+    └── <span class="file">.gitkeep</span>              <span class="comment">// Placeholder</span>
+        </div>
+    </section>
+
+    <!-- Konfiguration -->
+    <section id="konfiguration">
+        <h2>Konfiguration</h2>
+
+        <h3>WordPress-Optionen</h3>
+        <table>
+            <tr>
+                <th>Option</th>
+                <th>Standard</th>
+                <th>Beschreibung</th>
+            </tr>
+            <tr>
+                <td><code>linktrade_check_frequency</code></td>
+                <td>weekly</td>
+                <td>Prüf-Intervall</td>
+            </tr>
+            <tr>
+                <td><code>linktrade_email_notifications</code></td>
+                <td>true</td>
+                <td>E-Mail-Benachrichtigungen aktiviert</td>
+            </tr>
+            <tr>
+                <td><code>linktrade_notification_email</code></td>
+                <td>admin_email</td>
+                <td>E-Mail-Adresse für Benachrichtigungen</td>
+            </tr>
+            <tr>
+                <td><code>linktrade_batch_size</code></td>
+                <td>50</td>
+                <td>Links pro Cron-Durchlauf</td>
+            </tr>
+            <tr>
+                <td><code>linktrade_request_delay</code></td>
+                <td>3000</td>
+                <td>Pause zwischen Requests (ms)</td>
+            </tr>
+            <tr>
+                <td><code>linktrade_reminder_days</code></td>
+                <td>14</td>
+                <td>Tage vor Ablauf für Erinnerung</td>
+            </tr>
+            <tr>
+                <td><code>linktrade_fairness_alert</code></td>
+                <td>true</td>
+                <td>Fairness-Warnungen aktiviert</td>
+            </tr>
+        </table>
+
+        <h3>Link-Checker Einstellungen</h3>
+        <p>Der Link-Checker in <code>class-link-checker.php</code> verwendet:</p>
+        <ul>
+            <li><strong>User-Agent Rotation:</strong> 6 verschiedene Browser-User-Agents</li>
+            <li><strong>Timeout:</strong> 15 Sekunden pro Request</li>
+            <li><strong>Redirects:</strong> Bis zu 5 Weiterleitungen werden gefolgt</li>
+            <li><strong>URL-Matching:</strong> Flexible Erkennung (http/https, www/non-www, mit/ohne trailing slash)</li>
+        </ul>
+
+        <div class="alert alert-success">
+            <strong>PHP 8.2+ Kompatibilität:</strong> Der HTML-Parser verwendet die UTF-8 XML-Declaration Methode statt dem deprecated <code>mb_convert_encoding()</code>.
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    <p>Linktrade Monitor v1.1.0 | Entwickelt für WatchGuide.net</p>
+    <p>Dokumentation erstellt: 26. Dezember 2025</p>
+</footer>
+
+</body>
+</html>
