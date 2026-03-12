@@ -1,57 +1,66 @@
-# Linktrade Monitor
+# LinkTrade Monitor – Backlink Monitoring for WordPress
 
-**Backlink-Verwaltung und -Monitoring für WordPress**
+Automatically monitor your backlink exchanges. LinkTrade Monitor checks if your link partners still link back to you — and alerts you when links disappear.
 
-Verwalte deine Backlinks professionell: Linktausch, Linkkauf und kostenlose Verlinkungen - alles an einem Ort mit automatischer Statusprüfung.
-
----
+[![WordPress Plugin Version](https://img.shields.io/wordpress/plugin/v/linktrade-monitor)](https://wordpress.org/plugins/linktrade-monitor/)
+[![WordPress Plugin Downloads](https://img.shields.io/wordpress/plugin/dt/linktrade-monitor)](https://wordpress.org/plugins/linktrade-monitor/)
+[![License: GPL v2](https://img.shields.io/badge/License-GPL_v2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0)
 
 ## Features
 
-- **3 Link-Kategorien:** Tausch, Kauf, Kostenlos
-- **Automatische Link-Prüfung:** HTTP-Status, nofollow, noindex erkennen
-- **Fairness-Tracker:** Bei Linktausch - erkennt wenn Partner seinen Link entfernt
-- **Ablauf-Erinnerungen:** E-Mail-Benachrichtigung vor Laufzeitende
-- **Kontakt-Historie:** Alle Kommunikation dokumentieren
-- **Dashboard:** Statistiken auf einen Blick
-
----
+- Automatic backlink verification
+- Email alerts when links go missing
+- Dashboard with link status overview
+- Bulk import link partners
+- Check scheduling (daily/weekly)
+- Dofollow/nofollow detection
+- HTTP status code monitoring
+- German translation included
+- GDPR-friendly (checks run on your server)
 
 ## Installation
 
-1. **ZIP-Datei herunterladen** (von GitHub Releases)
-2. WordPress Admin → Plugins → Installieren → Plugin hochladen
-3. ZIP-Datei auswählen und installieren
-4. Plugin aktivieren
-5. Im Menü unter "Linktrade" starten
+1. Upload `linktrade-monitor` to `/wp-content/plugins/`
+2. Activate the plugin in WordPress
+3. Go to **LinkTrade** in your admin menu
+4. Add your link exchange partners
 
----
+Or install directly from [WordPress.org](https://wordpress.org/plugins/linktrade-monitor/).
 
-## Automatische Updates
+## How It Works
 
-Das Plugin aktualisiert sich automatisch über GitHub - genau wie Plugins aus dem offiziellen WordPress-Verzeichnis.
+1. Add your link partners (their URL + where they should link to you)
+2. LinkTrade Monitor checks regularly if the backlink exists
+3. If a link disappears, you get an email notification
+4. Take action before your SEO suffers
 
-Du siehst Update-Hinweise direkt im WordPress-Dashboard und kannst mit einem Klick aktualisieren.
+## Pro Version
 
----
+**[LinkTrade Monitor Pro](https://www.3task.de/linktrade-monitor-pro/)** unlocks advanced features:
 
-## Systemanforderungen
+- Unlimited link partners (free: 10)
+- Anchor text monitoring
+- Link position tracking (header/content/footer/sidebar)
+- Historical link data & charts
+- Competitor backlink alerts
+- CSV export & reporting
+- Priority support
 
-- WordPress 6.0+
-- PHP 8.0+
+**[Upgrade to Pro](https://www.3task.de/linktrade-monitor-pro/)**
 
----
+## Contributing
+
+Contributions are welcome! Please open an issue first to discuss your proposed changes.
 
 ## Support
 
-Bei Fragen oder Problemen: [GitHub Issues](https://github.com/Tribun74/linktrade-monitor/issues)
+- [WordPress.org Support Forum](https://wordpress.org/support/plugin/linktrade-monitor/)
+- [Report a Bug](https://github.com/Tribun74/linktrade-monitor/issues)
+
+## License
+
+GPL-2.0 – see [LICENSE](LICENSE) for details.
 
 ---
 
-## Lizenz
-
-GPL v2 or later
-
----
-
-**Entwickelt von [Frank Stemmler](https://frank-stemmler.de)**
+Made with care by [3task](https://www.3task.de) from Germany.
