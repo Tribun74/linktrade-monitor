@@ -1,0 +1,14 @@
+# Internal documentation
+SESSION-LOG.md
+DOKUMENTATION.html
+
+# Pro-only update checker
+plugin-update-checker/
+
+# Development files
+.claude/
+.env
+.DS_Store
+Thumbs.db
+*.log
+node_modules/
