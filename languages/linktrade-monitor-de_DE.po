@@ -1,0 +1,327 @@
+# German translation for Linktrade Monitor
+# Copyright (C) 2025 Frank Stemmler
+# This file is distributed under the same license as the Linktrade Monitor package.
+# Frank Stemmler, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Linktrade Monitor 1.1.1\n"
+"Report-Msgid-Bugs-To: https://frank-stemmler.de\n"
+"POT-Creation-Date: 2025-01-11 12:00+0000\n"
+"PO-Revision-Date: 2025-01-11 12:00+0000\n"
+"Last-Translator: Frank Stemmler\n"
+"Language-Team: German\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4\n"
+
+# Plugin action links
+msgid "Settings"
+msgstr "Einstellungen"
+
+msgid "Once Monthly"
+msgstr "Einmal monatlich"
+
+# Admin Menu
+msgid "Linktrade Monitor"
+msgstr "Linktrade Monitor"
+
+msgid "Linktrade"
+msgstr "Linktrade"
+
+# Admin JS strings
+msgid "Really delete this link?"
+msgstr "Diesen Link wirklich löschen?"
+
+msgid "Saving..."
+msgstr "Speichere..."
+
+msgid "Saved!"
+msgstr "Gespeichert!"
+
+msgid "An error occurred"
+msgstr "Ein Fehler ist aufgetreten"
+
+# Header
+msgid "New Link"
+msgstr "Neuer Link"
+
+# Check frequency
+msgid "Every 2 Weeks"
+msgstr "Alle 2 Wochen"
+
+msgid "Link checked."
+msgstr "Link geprüft."
+
+msgid "Backlink checked."
+msgstr "Backlink geprüft."
+
+# Tabs
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "All Links"
+msgstr "Alle Links"
+
+msgid "Fairness"
+msgstr "Fairness"
+
+msgid "New"
+msgstr "Neu"
+
+# Dashboard
+msgid "Total Links"
+msgstr "Gesamte Links"
+
+msgid "Online"
+msgstr "Online"
+
+msgid "active"
+msgstr "aktiv"
+
+msgid "Warnings"
+msgstr "Warnungen"
+
+msgid "Offline / Problems"
+msgstr "Offline / Probleme"
+
+msgid "By Category"
+msgstr "Nach Kategorie"
+
+msgid "Link Exchange"
+msgstr "Linktausch"
+
+msgid "Paid Links"
+msgstr "Gekaufte Links"
+
+msgid "Free"
+msgstr "Kostenlos"
+
+msgid "Average Domain Rating"
+msgstr "Durchschnittliches Domain Rating"
+
+msgid "Recent Links"
+msgstr "Neueste Links"
+
+# Links tab
+msgid "Link Overview"
+msgstr "Link-Übersicht"
+
+msgid "Search links..."
+msgstr "Links durchsuchen..."
+
+msgid "All Categories"
+msgstr "Alle Kategorien"
+
+msgid "All Status"
+msgstr "Alle Status"
+
+msgid "Warning"
+msgstr "Warnung"
+
+msgid "Offline"
+msgstr "Offline"
+
+msgid "Unchecked"
+msgstr "Ungeprüft"
+
+# Table headers
+msgid "Partner"
+msgstr "Partner"
+
+msgid "Category"
+msgstr "Kategorie"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "DR"
+msgstr "DR"
+
+msgid "Last Check"
+msgstr "Letzte Prüfung"
+
+msgid "Actions"
+msgstr "Aktionen"
+
+msgid "No links found. Add your first link!"
+msgstr "Keine Links gefunden. Füge deinen ersten Link hinzu!"
+
+msgid "ago"
+msgstr "her"
+
+msgid "Never"
+msgstr "Nie"
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Delete"
+msgstr "Löschen"
+
+# Categories
+msgid "Exchange"
+msgstr "Tausch"
+
+msgid "Paid"
+msgstr "Gekauft"
+
+# Fairness tab
+msgid "Reciprocity Tracker"
+msgstr "Gegenseitigkeits-Tracker"
+
+msgid "Monitor if both sides of link exchanges are being fair."
+msgstr "Überwacht ob beide Seiten beim Linktausch fair bleiben."
+
+msgid "Fair (both online)"
+msgstr "Fair (beide online)"
+
+msgid "Unfair (partner offline)"
+msgstr "Unfair (Partner offline)"
+
+msgid "Warning (nofollow etc.)"
+msgstr "Warnung (nofollow etc.)"
+
+msgid "Their Link to You"
+msgstr "Sein Link zu dir"
+
+msgid "Your Link to Them"
+msgstr "Dein Gegenlink"
+
+msgid "No link exchange partners found."
+msgstr "Keine Linktausch-Partner gefunden."
+
+msgid "Not set"
+msgstr "Nicht eingetragen"
+
+# Add form
+msgid "Add New Link"
+msgstr "Neuen Link hinzufügen"
+
+msgid "Partner Information"
+msgstr "Partner-Informationen"
+
+msgid "Partner Name"
+msgstr "Partner-Name"
+
+msgid "Contact (Email)"
+msgstr "Kontakt (E-Mail)"
+
+msgid "Incoming Link (from partner to you)"
+msgstr "Eingehender Link (von Partner zu dir)"
+
+msgid "Page URL where the link is"
+msgstr "Seiten-URL wo der Link ist"
+
+msgid "Your URL being linked"
+msgstr "Deine verlinkte URL"
+
+msgid "Anchor Text"
+msgstr "Ankertext"
+
+msgid "Reciprocal Link (your link to partner)"
+msgstr "Gegenlink (dein Link zum Partner)"
+
+msgid "Your page with link to partner"
+msgstr "Deine Seite mit Link zum Partner"
+
+msgid "Partner URL you link to"
+msgstr "Partner-URL die du verlinkst"
+
+msgid "Additional Info (optional)"
+msgstr "Zusätzliche Infos (optional)"
+
+msgid "Domain Rating (DR)"
+msgstr "Domain Rating (DR)"
+
+msgid "Notes"
+msgstr "Notizen"
+
+msgid "Save Link"
+msgstr "Link speichern"
+
+# Settings
+msgid "Language"
+msgstr "Sprache"
+
+msgid "Plugin Language"
+msgstr "Plugin-Sprache"
+
+msgid "Choose the language for this plugin interface."
+msgstr "Wähle die Sprache für die Plugin-Oberfläche."
+
+msgid "Notifications"
+msgstr "Benachrichtigungen"
+
+msgid "Notification Email"
+msgstr "Benachrichtigungs-E-Mail"
+
+msgid "Send email notifications for expiring links"
+msgstr "E-Mail-Benachrichtigungen für ablaufende Links senden"
+
+msgid "Remind me X days before expiration"
+msgstr "Erinnere mich X Tage vor Ablauf"
+
+msgid "Settings saved."
+msgstr "Einstellungen gespeichert."
+
+msgid "Save Settings"
+msgstr "Einstellungen speichern"
+
+# Modal
+msgid "Edit Link"
+msgstr "Link bearbeiten"
+
+# Status labels
+msgid "N/A"
+msgstr "N/V"
+
+# AJAX messages
+msgid "Permission denied."
+msgstr "Zugriff verweigert."
+
+msgid "Link updated successfully."
+msgstr "Link erfolgreich aktualisiert."
+
+msgid "Link saved successfully."
+msgstr "Link erfolgreich gespeichert."
+
+msgid "Invalid link ID."
+msgstr "Ungültige Link-ID."
+
+msgid "Link deleted."
+msgstr "Link gelöscht."
+
+msgid "Link not found."
+msgstr "Link nicht gefunden."
+
+# Cron emails
+msgid "[Linktrade Monitor] %d links expiring soon"
+msgstr "[Linktrade Monitor] %d Links laufen bald ab"
+
+msgid "The following links will expire in the next %d days:"
+msgstr "Folgende Links laufen in den nächsten %d Tagen ab:"
+
+msgid "- %1$s: %2$s (%3$d days remaining)"
+msgstr "- %1$s: %2$s (noch %3$d Tage)"
+
+# Link checker
+msgid "Empty response from server"
+msgstr "Leere Antwort vom Server"
+
+msgid "Link to target page not found"
+msgstr "Link zur Zielseite nicht gefunden"
+
+# Security
+msgid "Security check failed."
+msgstr "Sicherheitsprüfung fehlgeschlagen."
+
+# Pro hint
+msgid "Go Pro"
+msgstr "Pro Version"
+
+msgid "Need more features? Check out %1$sLinktrade Monitor Pro%2$s for unlimited links, daily checks, and more."
+msgstr "Mehr Features benötigt? Entdecke %1$sLinktrade Monitor Pro%2$s für unbegrenzte Links, tägliche Prüfungen und mehr."

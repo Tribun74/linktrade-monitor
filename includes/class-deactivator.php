@@ -1,26 +1,26 @@
 <?php
 /**
- * Plugin-Deaktivierung
+ * Plugin Deactivation
  *
  * @package Linktrade_Monitor
  * @since 1.0.0
  */
 
-if (!defined('ABSPATH')) {
+if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+/**
+ * Class Linktrade_Deactivator
+ */
 class Linktrade_Deactivator {
 
     /**
-     * Deaktivierung durchführen
+     * Deactivate the plugin
      */
     public static function deactivate() {
-        // Geplante Cron-Jobs entfernen
-        wp_clear_scheduled_hook('linktrade_check_links');
-        wp_clear_scheduled_hook('linktrade_send_notifications');
-
-        // Flush rewrite rules
-        flush_rewrite_rules();
+        // Clear scheduled cron events
+        wp_clear_scheduled_hook( 'linktrade_check_links' );
+        wp_clear_scheduled_hook( 'linktrade_check_reminders' );
     }
 }
