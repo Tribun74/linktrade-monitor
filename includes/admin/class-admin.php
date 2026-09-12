@@ -1337,18 +1337,26 @@ SEO Partner,https://seosite.com/resources,https://yoursite.com/tools,paid,62,202
         global $wpdb;
         $table_name = $wpdb->prefix . 'linktrade_links';
 
+        // A page we could not read (blocked, rate limited, transport error) is
+        // not a statement about the link. Keep the previous findings and record
+        // only that we tried and what came back.
+        $readable = empty( $result['unreadable'] );
+
         $update_data = array(
-            'status'       => $result['status'],
-            'last_check'   => current_time( 'mysql' ),
-            'http_code'    => $result['http_code'],
-            'is_nofollow'  => $result['is_nofollow'] ? 1 : 0,
-            'is_noindex'   => $result['is_noindex'] ? 1 : 0,
-            'is_sponsored' => $result['is_sponsored'] ? 1 : 0,
+            'last_check' => current_time( 'mysql' ),
+            'http_code'  => $result['http_code'],
         );
 
-        // Update anchor text if found.
-        if ( ! empty( $result['anchor_text'] ) ) {
-            $update_data['anchor_text'] = $result['anchor_text'];
+        if ( $readable ) {
+            $update_data['status']       = $result['status'];
+            $update_data['is_nofollow']  = $result['is_nofollow'] ? 1 : 0;
+            $update_data['is_noindex']   = $result['is_noindex'] ? 1 : 0;
+            $update_data['is_sponsored'] = $result['is_sponsored'] ? 1 : 0;
+
+            // Update anchor text if found.
+            if ( ! empty( $result['anchor_text'] ) ) {
+                $update_data['anchor_text'] = $result['anchor_text'];
+            }
         }
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Update operation on custom table.
@@ -1375,16 +1383,20 @@ SEO Partner,https://seosite.com/resources,https://yoursite.com/tools,paid,62,202
             return null;
         }
 
-        // Update backlink fields in database.
+        // Update backlink fields in database. Same rule as above: an unreadable
+        // page keeps the previous findings.
         global $wpdb;
         $table_name = $wpdb->prefix . 'linktrade_links';
 
         $update_data = array(
-            'backlink_status'      => $result['status'],
-            'backlink_last_check'  => current_time( 'mysql' ),
-            'backlink_http_code'   => $result['http_code'],
-            'backlink_is_nofollow' => $result['is_nofollow'] ? 1 : 0,
+            'backlink_last_check' => current_time( 'mysql' ),
+            'backlink_http_code'  => $result['http_code'],
         );
+
+        if ( empty( $result['unreadable'] ) ) {
+            $update_data['backlink_status']      = $result['status'];
+            $update_data['backlink_is_nofollow'] = $result['is_nofollow'] ? 1 : 0;
+        }
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Update operation on custom table.
         $wpdb->update( $table_name, $update_data, array( 'id' => $link_id ) );

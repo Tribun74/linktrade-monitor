@@ -92,34 +92,63 @@ class Linktrade {
 		foreach ( $links as $link ) {
 			$result = $checker->check( $link->partner_url, $link->target_url );
 
-			$update_data = array(
-				'status'       => $result['status'],
-				'http_code'    => $result['http_code'],
-				'is_nofollow'  => $result['is_nofollow'],
-				'is_noindex'   => $result['is_noindex'],
-				'redirect_url' => $result['redirect_url'],
-				'last_check'   => current_time( 'mysql' ),
-			);
+			// A page we could not read at all (blocked, rate limited, transport
+			// error) says nothing about the link. Keep every finding from the
+			// last readable check and record only the HTTP code and the time,
+			// so the block stays visible without raising a false alarm.
+			$readable = empty( $result['unreadable'] );
+			$status   = $readable ? $result['status'] : $link->status;
+
+			$update_data    = array();
+			$update_formats = array();
+
+			if ( $readable ) {
+				$update_data['status']       = $result['status'];
+				$update_formats[]            = '%s';
+				$update_data['is_nofollow']  = $result['is_nofollow'];
+				$update_formats[]            = '%d';
+				$update_data['is_noindex']   = $result['is_noindex'];
+				$update_formats[]            = '%d';
+				$update_data['redirect_url'] = $result['redirect_url'];
+				$update_formats[]            = '%s';
+			}
+
+			$update_data['http_code']  = $result['http_code'];
+			$update_formats[]          = '%d';
+			$update_data['last_check'] = current_time( 'mysql' );
+			$update_formats[]          = '%s';
 
 			// For exchanges, also check reciprocal link.
 			if ( 'exchange' === $link->category && ! empty( $link->backlink_url ) ) {
 				usleep( $delay * 1000 );
 				$backlink_result = $checker->check( $link->backlink_url, $link->backlink_target );
 
-				$update_data['backlink_status']      = $backlink_result['status'];
-				$update_data['backlink_http_code']   = $backlink_result['http_code'];
-				$update_data['backlink_is_nofollow'] = $backlink_result['is_nofollow'];
-				$update_data['backlink_last_check']  = current_time( 'mysql' );
+				$backlink_readable = empty( $backlink_result['unreadable'] );
+				$backlink_status   = $backlink_readable ? $backlink_result['status'] : $link->backlink_status;
 
-				// Calculate fairness.
+				if ( $backlink_readable ) {
+					$update_data['backlink_status']      = $backlink_result['status'];
+					$update_formats[]                    = '%s';
+					$update_data['backlink_is_nofollow'] = $backlink_result['is_nofollow'];
+					$update_formats[]                    = '%d';
+				}
+
+				$update_data['backlink_http_code']  = $backlink_result['http_code'];
+				$update_formats[]                   = '%d';
+				$update_data['backlink_last_check'] = current_time( 'mysql' );
+				$update_formats[]                   = '%s';
+
+				// Calculate fairness from what we actually know, not from the
+				// empty defaults an unreadable check returns.
 				$update_data['fairness_score'] = $this->calculate_fairness(
-					$result['status'],
-					$backlink_result['status'],
-					$result['is_nofollow'],
-					$backlink_result['is_nofollow'],
+					$status,
+					$backlink_status,
+					$readable ? $result['is_nofollow'] : ( isset( $link->is_nofollow ) ? (bool) $link->is_nofollow : false ),
+					$backlink_readable ? $backlink_result['is_nofollow'] : ( isset( $link->backlink_is_nofollow ) ? (bool) $link->backlink_is_nofollow : false ),
 					isset( $link->domain_rating ) ? (int) $link->domain_rating : 0,
 					isset( $link->my_domain_rating ) ? (int) $link->my_domain_rating : 0
 				);
+				$update_formats[] = '%d';
 			}
 
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Update operation on custom table.
@@ -127,7 +156,7 @@ class Linktrade {
 				$table_name,
 				$update_data,
 				array( 'id' => absint( $link->id ) ),
-				array( '%s', '%d', '%d', '%d', '%s', '%s', '%s', '%d', '%d', '%s', '%d' ),
+				$update_formats,
 				array( '%d' )
 			);
 

@@ -1,22 +1,22 @@
 === Linktrade Monitor ===
 Contributors: 3task
-Tags: backlink, backlink monitor, link exchange, link building, backlink checker
+Tags: link exchange, backlink monitor, backlink tracker, reciprocal links, backlink checker
 Requires at least: 6.0
-Tested up to: 6.9
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A backlink monitor that tracks BOTH sides of link exchanges. Check backlinks, analyze link health and detect when partners remove their links.
+Link exchange manager for WordPress: tracks both sides of every swap and tells you when a partner quietly drops your link.
 
 == Description ==
 
-**Linktrade Monitor** is the backlink monitor built specifically for **link exchange management** in WordPress. Unlike other backlink checker tools, it tracks YOUR links to partners AND their links back to you - giving you a complete backlink analysis from inside your WordPress dashboard.
+**Linktrade Monitor** is a WordPress plugin designed specifically for **link exchange management**. Unlike many backlink monitors, it tracks YOUR links to partners AND their links to you.
 
 = Why Linktrade Monitor? =
 
-Most backlink checker tools only track incoming links. But if you do **link exchanges** or reciprocal linking, you need to know:
+Other backlink tools only track incoming links. But if you do **link exchanges**, you need to know:
 
 * Is your partner's link still online?
 * Is YOUR link to them still required?
@@ -42,11 +42,11 @@ Most backlink checker tools only track incoming links. But if you do **link exch
 
 = Perfect For =
 
-* **SEO professionals** managing link building campaigns and backlink monitoring
-* **Website owners** doing link exchanges, reciprocal linking or guest posting
+* **SEO professionals** managing link building campaigns
+* **Website owners** doing link exchanges or guest posting
 * **Agencies** tracking client backlinks and partnerships
-* **Bloggers** who trade links with other bloggers and need to check backlinks regularly
-* Anyone who wants to **monitor backlinks** and protect their link investments
+* **Bloggers** who trade links with other bloggers
+* Anyone who wants to **protect their link investments**
 
 = What Makes Us Different? =
 
@@ -128,6 +128,22 @@ Yes! Linktrade Monitor Pro adds project management, ROI tracking, anchor text an
 4. Add New Link - Simple form to track new backlinks
 
 == Changelog ==
+
+= 1.3.2 =
+* Fixed: a page that could not be read at all was reported as "offline", which
+  reads as "your link was removed". Blocked pages (HTTP 401, 403, 429), server
+  errors, transport errors and empty responses all ended up in that bucket, so
+  a partner site behind a rate limit or a CDN produced a false alarm every time
+  it was checked. Rate limits on WordPress.com and several CDNs answer with 403,
+  which made this common.
+  An unreadable page is not a statement about the link: the plugin now reports
+  a warning asking you to verify by hand, keeps every finding from the last
+  readable check, and records only the HTTP code and the timestamp.
+* Fixed: an unreadable check also overwrote the nofollow, noindex, sponsored,
+  redirect and anchor fields with empty defaults, and the fairness score was
+  calculated from those empty values.
+* Added: one retry for transport errors, 401, 403, 429 and 5xx before anything
+  is written, so a single hiccup never looks like a removed link.
 
 = 1.3.1 =
 * New: Compact 2-column form layout - reduces scrolling by 60%

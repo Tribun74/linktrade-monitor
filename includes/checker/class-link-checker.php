@@ -55,14 +55,29 @@ class Linktrade_Link_Checker {
             'error_message' => null,
             'link_found'    => false,
             'anchor_text'   => null,
+            // True when the page could not be read at all (blocked, rate
+            // limited). The caller must then keep the previous findings: an
+            // unreadable page is not a statement about the link.
+            'unreadable'    => false,
         );
 
-        // Make HTTP request.
+        // Make HTTP request. Transport errors, rate limits and server errors get
+        // one retry: a single hiccup must never look like a removed link.
         $response = $this->make_request( $page_url );
+
+        if ( $this->is_temporary_failure( $response ) ) {
+            sleep( 2 );
+            $retry = $this->make_request( $page_url );
+            if ( ! $this->is_temporary_failure( $retry ) ) {
+                $response = $retry;
+            }
+        }
 
         $result['response_time'] = (int) ( ( microtime( true ) - $start_time ) * 1000 );
 
         if ( is_wp_error( $response ) ) {
+            $result['status']        = 'warning';
+            $result['unreadable']    = true;
             $result['error_message'] = $response->get_error_message();
             return $result;
         }
@@ -73,6 +88,29 @@ class Linktrade_Link_Checker {
         $final_url = $this->get_final_url( $response );
         if ( $final_url && $final_url !== $page_url ) {
             $result['redirect_url'] = $final_url;
+        }
+
+        // Blocked, not removed: 401/403/429 mean we were not allowed to read the
+        // page, so we cannot tell whether the link is still there. Reporting
+        // "offline" here would be a false alarm, and users stop trusting a
+        // monitor that cries wolf.
+        if ( in_array( (int) $result['http_code'], array( 401, 403, 429 ), true ) ) {
+            $result['status']        = 'warning';
+            $result['unreadable']    = true;
+            $result['error_message'] = sprintf(
+                /* translators: %d: HTTP status code */
+                __( 'Page blocks automated checks (HTTP %d), please verify by hand', 'linktrade-monitor' ),
+                $result['http_code']
+            );
+            return $result;
+        }
+
+        // Server errors say nothing about the link either.
+        if ( $result['http_code'] >= 500 ) {
+            $result['status']        = 'warning';
+            $result['unreadable']    = true;
+            $result['error_message'] = sprintf( 'HTTP %d', $result['http_code'] );
+            return $result;
         }
 
         // Abort on HTTP error.
@@ -86,6 +124,8 @@ class Linktrade_Link_Checker {
         $body = wp_remote_retrieve_body( $response );
 
         if ( empty( $body ) ) {
+            $result['status']        = 'warning';
+            $result['unreadable']    = true;
             $result['error_message'] = __( 'Empty response from server', 'linktrade-monitor' );
             return $result;
         }
@@ -114,6 +154,26 @@ class Linktrade_Link_Checker {
         }
 
         return $result;
+    }
+
+    /**
+     * Is this response a temporary failure that deserves a retry?
+     *
+     * 401 and 403 are included on purpose: rate limits on WordPress.com and
+     * several CDNs answer with 403, not 429. Without a retry a single throttled
+     * request looks like a blocked page.
+     *
+     * @param array|WP_Error $response Response.
+     * @return bool True for transport errors, 401, 403, 429 and 5xx.
+     */
+    private function is_temporary_failure( $response ) {
+        if ( is_wp_error( $response ) ) {
+            return true;
+        }
+
+        $code = (int) wp_remote_retrieve_response_code( $response );
+
+        return ( 401 === $code || 403 === $code || 429 === $code || $code >= 500 );
     }
 
     /**

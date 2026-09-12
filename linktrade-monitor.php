@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name: Linktrade Monitor
- * Plugin URI: https://wordpress.org/plugins/linktrade-monitor/
+ * Plugin URI: https://www.3task.de/linktrade-monitor-pro/
  * Description: Backlink management and monitoring for WordPress. Track link exchanges, paid links, and free backlinks.
- * Version: 1.3.1
+ * Version: 1.3.2
  * Author: 3task
  * Author URI: https://www.3task.de
  * License: GPL v2 or later
@@ -12,7 +12,7 @@
  * Domain Path: /languages
  * Requires at least: 6.0
  * Requires PHP: 7.4
- * Tested up to: 6.9
+ * Tested up to: 7.1
  */
 
 // Prevent direct access.
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin constants.
-define( 'LINKTRADE_VERSION', '1.3.1' );
+define( 'LINKTRADE_VERSION', '1.3.2' );
 define( 'LINKTRADE_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'LINKTRADE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'LINKTRADE_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
