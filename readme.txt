@@ -1,80 +1,72 @@
-=== Linktrade Monitor ===
+=== Linktrade Monitor: Backlink Tracker for Link Exchanges ===
 Contributors: 3task
-Tags: link exchange, backlink monitor, backlink tracker, reciprocal links, backlink checker
-Requires at least: 6.0
+Tags: backlink monitor, backlink checker, link exchange, reciprocal links, backlink manager
+Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.2
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Link exchange manager for WordPress: tracks both sides of every swap and tells you when a partner quietly drops your link.
+Backlink monitor for link exchanges: checks both directions weekly, emails you when a link is removed or turns nofollow. Self-hosted, no account.
 
 == Description ==
 
-**Linktrade Monitor** is a WordPress plugin designed specifically for **link exchange management**. Unlike many backlink monitors, it tracks YOUR links to partners AND their links to you.
+A link exchange is easy to agree and easy to forget. Months later the partner has redesigned, the link is gone or quietly carries `rel="nofollow"`, and nobody notices. The same happens on your own side: a relaunch drops the link you promised, and the partner finds out before you do.
 
-= Why Linktrade Monitor? =
+Linktrade Monitor is a backlink monitor built for link exchanges, paid links and guest posts. Add the partner page once. The plugin then checks every week whether their link to you is still there, whether it turned nofollow or sponsored, whether the page went noindex, and whether your link to them is still live. When something changes, you get one email with all changes. Everything runs inside your WordPress site: no account, no API key, no third-party service.
 
-Other backlink tools only track incoming links. But if you do **link exchanges**, you need to know:
+= What it does =
 
-* Is your partner's link still online?
-* Is YOUR link to them still required?
-* Are you being treated fairly?
+* **Checks both directions.** Their link to you and your link to them, in one row.
+* **Weekly automatic check.** In small portions, so it also finishes on small hosting plans. The dashboard shows when the next check runs and when the last one finished.
+* **Email when something changes.** One summary per check: link removed, now nofollow, now sponsored, page now noindex, your own link missing, link back again.
+* **Needs your attention.** The dashboard lists what to act on, grouped by what to do: partner removed the link, your link is missing, link devalued, agreement ending, page could not be checked.
+* **History.** Every check and every status change is recorded, so you can say since when a link has been gone.
+* **Check now.** A button per link, and a new check whenever you change an address.
+* **Finds your own links.** Enter the partner page and the plugin searches your published posts and pages for links to that domain.
+* **Message to the partner.** A ready-to-copy text that states what was found and since when. Nothing is sent automatically.
+* **Keeps the agreement.** Store the agreed anchor text and whether a followed link was promised. You are told when the page no longer matches.
+* **Shows who you already link to.** One search over your whole site lists the outside domains, ready to be turned into monitored partners.
+* **Record for a complaint.** Dates, status code and the last anchor seen, ready to copy when a paid link has vanished.
+* **Counter in the menu and a dashboard widget**, so you see open issues without opening the plugin.
+* **Large lists.** Pages of 50, sortable columns, search, and actions for several links at once.
+* **Command line.** `wp linktrade check` and `wp linktrade status` for sites with a real cron job.
+* **Privacy tools.** Partner contact addresses are covered by the WordPress export and erase requests.
+* **No false alarms.** A page that blocks automated requests, times out or answers with a server error is reported as "not verifiable", never as "link removed".
+* **Fairness Score** for exchanges, expiry reminders for paid and time-limited links, Domain Rating fields, notes, CSV import and export.
+* **Site Health entry.** WordPress tells you if the automatic check cannot run.
 
-**Linktrade Monitor answers all these questions with its Fairness Score.**
+= What it detects =
 
-= Key Features =
+* Link removed, or pointing to a different page of your site
+* `rel="nofollow"`, `rel="sponsored"`, `rel="ugc"`
+* Page-wide `noindex`, `nofollow` and `none` in the robots meta tag, the googlebot meta tag and the X-Robots-Tag header
+* Redirected partner pages, shown with the address they lead to
+* Pages that only build their content with JavaScript, reported as "not verifiable" instead of "removed"
+* Pages that cannot be read (bot protection, rate limits, server errors), shown separately
 
-* **Link Exchange Tracking** - Monitor both sides of link exchanges
-* **Fairness Score** - Know when partners remove their links
-* **Three Link Categories** - Track exchanges, paid links, and free backlinks separately
-* **Instant Check on Add** - Every new link is verified immediately
-* **Automatic Checking** - Monthly automated link verification (once a month)
-* **Exchange Duration Tracking** - Track start dates and expiration for time-limited exchanges
-* **HTTP Status Monitoring** - Track 200, 301, 404, and other status codes
-* **nofollow/noindex Detection** - Get warned about link attribute changes
-* **Email Notifications** - Receive alerts for expiring or problematic links
-* **Domain Rating Tracking** - Store DR values for all your link partners
-* **Partner Contact Management** - Keep partner emails organized
-* **Expiration Reminders** - Never miss a paid link renewal
-* **GDPR Friendly** - All data stays on your server
+= Who it is for =
 
-= Perfect For =
+* Website owners and bloggers who exchange links
+* SEOs who buy links or place guest posts and want to know they are still there
+* Agencies that keep link agreements for a site
 
-* **SEO professionals** managing link building campaigns
-* **Website owners** doing link exchanges or guest posting
-* **Agencies** tracking client backlinks and partnerships
-* **Bloggers** who trade links with other bloggers
-* Anyone who wants to **protect their link investments**
+= Languages =
 
-= What Makes Us Different? =
+English and German. The plugin follows the language of your WordPress site.
 
-| Feature | Linktrade Monitor | Other Tools |
-|---------|-------------------|-------------|
-| Track incoming backlinks | Yes | Yes |
-| Track YOUR outgoing links | **Yes** | No |
-| Fairness Score | **Yes** | No |
-| Link Exchange Management | **Yes** | No |
-| Paid Link Expiration | **Yes** | No |
-| Partner Categories | **Yes** | No |
+= Pro version =
 
-= Looking for More? =
+The free plugin is complete for one website. **Linktrade Monitor Pro** is for people who manage several sites or buy links regularly:
 
-**Linktrade Monitor Pro** takes link exchange management to the next level with 10+ advanced features:
+* Daily or hourly checks and "check all now"
+* Projects: links of several websites in one installation
+* Partners with several deals, mixed packages
+* Cost and value overview for paid links
+* Anchor text distribution, tags
 
-* **Project Management** - Track links across multiple websites from one dashboard
-* **ROI Tracking & Analytics** - Calculate cost, value, and return on your link investments
-* **Anchor Text Analysis** - Monitor anchor text distribution across all your links
-* **Webhook & Slack Notifications** - Get instant alerts via Slack or custom webhooks
-* **Configurable Check Frequency** - Check links hourly, daily, or weekly instead of monthly
-* **On-Demand Checking** - Check all links instantly with one click
-* **Tags & Link Organization** - Organize links with custom tags and categories
-* **Sitemap Picker** - Select URLs from your sitemap when adding new links
-* **Unlimited Links** - No restrictions on the number of tracked links
-* **German Language Support** - Full German translation included
-
-[Learn more about Linktrade Monitor Pro](https://www.3task.de/linktrade-monitor-pro/)
+[Linktrade Monitor Pro](https://www.3task.de/en/linktrade-monitor/)
 
 == Installation ==
 
@@ -87,24 +79,38 @@ Other backlink tools only track incoming links. But if you do **link exchanges**
 
 = How often are links checked? =
 
-Links are checked instantly when you add them, plus automatic checks once a month.
+Every link is checked when you add it and whenever you change one of its addresses. After that all links are checked once a week, a few at a time. You can also check a single link at any moment with the "Check now" button.
+
+= Will I be notified when a link disappears? =
+
+Yes. After each weekly check you get one email that lists every change: links that were removed, turned nofollow or sponsored, pages that went noindex, your own links that are missing, and links that came back. If nothing changed, no email is sent, unless you switch on the weekly summary in the settings.
+
+= The check says "Not verifiable". What does that mean? =
+
+The page could not be read: it blocks automated requests, answered with a server error or did not answer in time. That says nothing about your link, so the last readable result stays in place. Open the page in your browser to see for yourself.
+
+= The automatic check does not seem to run. =
+
+WordPress runs scheduled tasks only when somebody visits the site. On a site with very few visitors, set up a real cron job that calls wp-cron.php. The dashboard and Tools > Site Health tell you when the check is not scheduled or overdue.
 
 = What does the Fairness Score mean? =
 
 The Fairness Score shows if both sides of a link exchange are holding up their end:
 
 * **100%** - Both links are online and healthy
+* **70%** - Their link is there, but on a page marked noindex
 * **60%** - Your link is dofollow, partner's is nofollow
 * **50%** - Both links are offline
+* **25%** - Your link to them is gone, their link to you is still online
 * **0%** - Your link is online, but partner removed theirs
 
 = Is my data secure? =
 
-Yes! All your link data is stored in your own WordPress database. We don't send any data to external servers. GDPR friendly.
+All your link data is stored in your own WordPress database. There is no account, no API key and no third-party service. To check a link, your server requests the partner page you entered (and, for exchanges, your own page), the same way a browser would. Nothing else is sent anywhere.
 
 = Can I track nofollow links? =
 
-Absolutely. Linktrade Monitor detects nofollow, noindex, and sponsored attributes and will alert you if a link changes.
+Yes. Linktrade Monitor detects nofollow, sponsored and ugc on the link and noindex or nofollow on the page, marks such links with a warning and includes the change in the email.
 
 = What's the difference between Exchange, Paid, and Free links? =
 
@@ -114,20 +120,93 @@ Absolutely. Linktrade Monitor detects nofollow, noindex, and sponsored attribute
 
 = Does it work with other SEO plugins? =
 
-Yes! Linktrade Monitor works alongside Yoast SEO, Rank Math, AIOSEO, and any other SEO plugin.
+Yes. Linktrade Monitor works alongside Yoast SEO, Rank Math, AIOSEO, and any other SEO plugin.
+
+= Does the plugin ask for a review? =
+
+Once, after 30 days of use, on its own page only. One click closes it for good.
 
 = Is there a Pro version? =
 
-Yes! Linktrade Monitor Pro adds project management, ROI tracking, anchor text analysis, webhook notifications, configurable check frequency, and more. Visit [3task.de/linktrade-monitor-pro](https://www.3task.de/linktrade-monitor-pro/) for details.
+Yes. Linktrade Monitor Pro adds daily and hourly checks, projects for several websites, cost tracking, tags and an anchor text overview. Visit [3task.de](https://www.3task.de/en/linktrade-monitor/) for details.
 
 == Screenshots ==
 
-1. Dashboard - Overview of all your links and their status
-2. All Links - Complete list with filtering and search
-3. Fairness Tracker - Monitor link exchange reciprocity
-4. Add New Link - Simple form to track new backlinks
+1. Dashboard: what needs your attention, and when the next check runs
+2. All links with status, "gone for" dates and the actions per link
+3. History of a link: status changes and recent checks
+4. Message to the partner, ready to copy
+5. Fairness: both directions of every exchange side by side
+6. Add a link: agreed anchor text, followed link agreed, search for your own link to the partner
+7. Who do you already link to? One search lists the outside domains of your site
 
 == Changelog ==
+
+= 1.4.0 =
+* New: links are checked every week instead of once a month, in small portions that continue until every link is done. Before, one run checked at most 50 links and stopped.
+* New: one email after each check that lists what changed (link removed, nofollow, sponsored, noindex, your own link missing, link back). Optional weekly summary when nothing changed.
+* New: check history and change log per link, with "since" dates in the list.
+* New: "Needs your attention" on the dashboard, grouped by what to do.
+* New: "Check now" per link. Changing an address triggers a new check.
+* New: "Find my link to this partner" searches your posts and pages for the reciprocal link.
+* New: message to the partner, ready to copy.
+* New: Site Health entry and dashboard box that show whether the automatic check is scheduled.
+* New: agreed anchor text and "followed link agreed" per link, with a notice when the page differs.
+* New: search of the whole site for outgoing links, to add partners with two clicks.
+* New: record for a complaint in the history window.
+* New: counter in the admin menu and a widget on the WordPress dashboard.
+* New: the list has pages, sortable columns, a search that covers all links, and bulk check and delete.
+* New: WP-CLI commands `wp linktrade check` and `wp linktrade status`.
+* New: partner contact addresses are included in the WordPress personal data export and erasure tools.
+* Improved: colours meet the WCAG AA contrast of 4.5:1, keyboard focus is always visible.
+* New: detects rel="sponsored" and rel="ugc", robots "none" and "nofollow", the googlebot meta tag.
+* Improved: the target page is compared exactly, "/page" no longer matches "/page-2".
+* Improved: bot protection is recognised by its technical markers, not by ordinary wording in the text.
+* Improved: pages that cannot be read are shown as "Not verifiable" with a date, instead of looking freshly checked.
+* Improved: CSV import reads semicolon-separated files, files with a byte order mark and notes with line breaks, and names the line of every problem. Imported links are checked in the background.
+* Improved: the plugin follows the language of the site. The edit window is translated.
+* Fixed: an expiry reminder was marked as sent before the email went out, and was never sent again after the end date had been changed.
+* Fixed: tables no longer push the page sideways on small screens.
+* Changed: emoji icons replaced by WordPress icons, upgrade box on the dashboard reduced to one line.
+
+= 1.3.4 =
+* Fixed: deleting this plugin while Linktrade Monitor Pro is installed no longer
+  removes the shared link tables and settings. Your links stay, whichever of the
+  two plugins you remove.
+* Fixed: activating this plugin while Pro is active could stop the site with a
+  fatal error. The free plugin now steps aside and shows a notice.
+* Fixed: a partner page that had never been read, or an exchange without a
+  reciprocal link on record, was scored as "link removed". Such exchanges are
+  now shown as "Not rated yet". Stored scores are recalculated once on update.
+* Fixed: the Fairness tab counter left out the 0 percent case.
+* Fixed: server errors (HTTP 5xx), timeouts and empty responses were still
+  written as "offline". They now keep the last readable result.
+* Fixed: saving reported success even when required fields were missing or the
+  database refused the entry. Fields are now validated on the server.
+* Security: link checks only request http and https addresses and refuse
+  private and loopback addresses. CSV export cells that start with a formula
+  character are neutralised.
+* Changed: the readme no longer lists unlimited links and German as Pro
+  features. Both have always been part of the free plugin.
+
+= 1.3.3 =
+* Fixed: the Fairness Score was inverted. When a partner had removed their link
+  while your link to them was still online, the score showed 100 percent instead
+  of 0, so the very case the plugin exists to catch was sorted to the bottom of
+  the list and stayed out of sight. The score now reads 0 when the partner
+  dropped you, 25 when you dropped them, 50 when both links are gone, and 60 or
+  70 for the nofollow and noindex cases.
+* Fixed: a link to a look-alike domain was counted as your backlink, because the
+  match was a plain substring, so "notexample.org" matched the target
+  "example.org". The check now compares the host exactly.
+* Added: noindex is now detected in the X-Robots-Tag HTTP header as well, not
+  only in the meta robots tag.
+* Added: bot-protection pages (Cloudflare and similar) that answer with HTTP 200
+  are recognised and no longer counted as a healthy or a removed link.
+* Improved: a link that moved to another path on the same domain is reported as a
+  warning with the URL that is actually linked, instead of a false "removed".
+* Security: the two internal AJAX read endpoints now require the manage_options
+  capability, like every other endpoint.
 
 = 1.3.2 =
 * Fixed: a page that could not be read at all was reported as "offline", which
@@ -205,6 +284,12 @@ Yes! Linktrade Monitor Pro adds project management, ROI tracking, anchor text an
 * Multi-language support (English, German)
 
 == Upgrade Notice ==
+
+= 1.4.0 =
+Weekly checks, an email when a link disappears or turns nofollow, check history and a dashboard that shows what needs your attention.
+
+= 1.3.4 =
+Protects your links when you remove the free plugin after moving to Pro, and corrects fairness scores for pages that could not be read.
 
 = 1.3.1 =
 Compact form layout! Add new links with 60% less scrolling. Side-by-side incoming/outgoing columns make link relationships crystal clear.

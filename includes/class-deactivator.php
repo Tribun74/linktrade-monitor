@@ -7,7 +7,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
 
 /**
@@ -15,12 +15,15 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Linktrade_Deactivator {
 
-    /**
-     * Deactivate the plugin
-     */
-    public static function deactivate() {
-        // Clear scheduled cron events
-        wp_clear_scheduled_hook( 'linktrade_check_links' );
-        wp_clear_scheduled_hook( 'linktrade_check_reminders' );
-    }
+	/**
+	 * Deactivate the plugin
+	 */
+	public static function deactivate() {
+		// Clear scheduled cron events
+		wp_clear_scheduled_hook( 'linktrade_check_links' );
+		wp_clear_scheduled_hook( 'linktrade_check_reminders' );
+		wp_clear_scheduled_hook( 'linktrade_continue_run' );
+		delete_option( 'linktrade_run' );
+		delete_transient( 'linktrade_run_lock' );
+	}
 }

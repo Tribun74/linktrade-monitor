@@ -36,6 +36,19 @@ class Linktrade {
 		// Models.
 		require_once LINKTRADE_PLUGIN_DIR . 'includes/models/class-link.php';
 
+		// Check runner (schedule, history, notifications).
+		require_once LINKTRADE_PLUGIN_DIR . 'includes/class-runner.php';
+
+		// Menu counter, dashboard widget, privacy tools.
+		require_once LINKTRADE_PLUGIN_DIR . 'includes/class-extras.php';
+		Linktrade_Extras::init();
+
+		// Command line.
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+			require_once LINKTRADE_PLUGIN_DIR . 'includes/class-cli.php';
+			WP_CLI::add_command( 'linktrade', 'Linktrade_CLI' );
+		}
+
 		// Admin.
 		if ( is_admin() ) {
 			require_once LINKTRADE_PLUGIN_DIR . 'includes/admin/class-admin.php';
@@ -53,212 +66,129 @@ class Linktrade {
 			add_action( 'admin_enqueue_scripts', array( $this->admin, 'enqueue_assets' ) );
 			add_action( 'wp_ajax_linktrade_save_link', array( $this->admin, 'ajax_save_link' ) );
 			add_action( 'wp_ajax_linktrade_delete_link', array( $this->admin, 'ajax_delete_link' ) );
-			add_action( 'wp_ajax_linktrade_get_links', array( $this->admin, 'ajax_get_links' ) );
 			add_action( 'wp_ajax_linktrade_get_link', array( $this->admin, 'ajax_get_link' ) );
 			add_action( 'wp_ajax_linktrade_export_csv', array( $this->admin, 'ajax_export_csv' ) );
 			add_action( 'wp_ajax_linktrade_import_csv', array( $this->admin, 'ajax_import_csv' ) );
+			add_action( 'wp_ajax_linktrade_check_now', array( $this->admin, 'ajax_check_now' ) );
+			add_action( 'wp_ajax_linktrade_get_history', array( $this->admin, 'ajax_get_history' ) );
+			add_action( 'wp_ajax_linktrade_get_message', array( $this->admin, 'ajax_get_message' ) );
+			add_action( 'wp_ajax_linktrade_find_backlink', array( $this->admin, 'ajax_find_backlink' ) );
+			add_action( 'wp_ajax_linktrade_bulk_delete', array( $this->admin, 'ajax_bulk_delete' ) );
+			add_action( 'wp_ajax_linktrade_test_mail', array( $this->admin, 'ajax_test_mail' ) );
+			add_action( 'wp_ajax_linktrade_scan_outgoing', array( $this->admin, 'ajax_scan_outgoing' ) );
+			add_action( 'admin_init', array( 'Linktrade_Runner', 'ensure_schedule' ) );
 		}
 
-		// Cron hooks.
-		add_action( 'linktrade_check_links', array( $this, 'cron_check_links' ) );
-		add_action( 'linktrade_check_reminders', array( $this, 'cron_check_reminders' ) );
+		// Scheduled work.
+		add_action( Linktrade_Runner::HOOK, array( 'Linktrade_Runner', 'start_full_run' ) );
+		add_action( Linktrade_Runner::CONTINUE_HOOK, array( 'Linktrade_Runner', 'process' ) );
+		add_action( 'linktrade_check_reminders', array( 'Linktrade_Runner', 'send_reminders' ) );
+
+		// Site Health: tell the owner when the automatic check cannot run.
+		add_filter( 'site_status_tests', array( 'Linktrade_Runner', 'register_site_health' ) );
 	}
 
 	/**
-	 * Cron: Check all links (biweekly)
-	 */
-	public function cron_check_links() {
-		require_once LINKTRADE_PLUGIN_DIR . 'includes/checker/class-link-checker.php';
-
-		global $wpdb;
-		$table_name = $wpdb->prefix . 'linktrade_links';
-		$batch_size = absint( get_option( 'linktrade_batch_size', 50 ) );
-		$delay      = absint( get_option( 'linktrade_request_delay', 3000 ) );
-
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Cron job requires fresh data from custom table.
-		$links = $wpdb->get_results(
-			$wpdb->prepare(
-				'SELECT * FROM `' . esc_sql( $table_name ) . '` ORDER BY last_check ASC, created_at ASC LIMIT %d',
-				$batch_size
-			)
-		);
-
-		if ( empty( $links ) ) {
-			return;
-		}
-
-		$checker = new Linktrade_Link_Checker();
-
-		foreach ( $links as $link ) {
-			$result = $checker->check( $link->partner_url, $link->target_url );
-
-			// A page we could not read at all (blocked, rate limited, transport
-			// error) says nothing about the link. Keep every finding from the
-			// last readable check and record only the HTTP code and the time,
-			// so the block stays visible without raising a false alarm.
-			$readable = empty( $result['unreadable'] );
-			$status   = $readable ? $result['status'] : $link->status;
-
-			$update_data    = array();
-			$update_formats = array();
-
-			if ( $readable ) {
-				$update_data['status']       = $result['status'];
-				$update_formats[]            = '%s';
-				$update_data['is_nofollow']  = $result['is_nofollow'];
-				$update_formats[]            = '%d';
-				$update_data['is_noindex']   = $result['is_noindex'];
-				$update_formats[]            = '%d';
-				$update_data['redirect_url'] = $result['redirect_url'];
-				$update_formats[]            = '%s';
-			}
-
-			$update_data['http_code']  = $result['http_code'];
-			$update_formats[]          = '%d';
-			$update_data['last_check'] = current_time( 'mysql' );
-			$update_formats[]          = '%s';
-
-			// For exchanges, also check reciprocal link.
-			if ( 'exchange' === $link->category && ! empty( $link->backlink_url ) ) {
-				usleep( $delay * 1000 );
-				$backlink_result = $checker->check( $link->backlink_url, $link->backlink_target );
-
-				$backlink_readable = empty( $backlink_result['unreadable'] );
-				$backlink_status   = $backlink_readable ? $backlink_result['status'] : $link->backlink_status;
-
-				if ( $backlink_readable ) {
-					$update_data['backlink_status']      = $backlink_result['status'];
-					$update_formats[]                    = '%s';
-					$update_data['backlink_is_nofollow'] = $backlink_result['is_nofollow'];
-					$update_formats[]                    = '%d';
-				}
-
-				$update_data['backlink_http_code']  = $backlink_result['http_code'];
-				$update_formats[]                   = '%d';
-				$update_data['backlink_last_check'] = current_time( 'mysql' );
-				$update_formats[]                   = '%s';
-
-				// Calculate fairness from what we actually know, not from the
-				// empty defaults an unreadable check returns.
-				$update_data['fairness_score'] = $this->calculate_fairness(
-					$status,
-					$backlink_status,
-					$readable ? $result['is_nofollow'] : ( isset( $link->is_nofollow ) ? (bool) $link->is_nofollow : false ),
-					$backlink_readable ? $backlink_result['is_nofollow'] : ( isset( $link->backlink_is_nofollow ) ? (bool) $link->backlink_is_nofollow : false ),
-					isset( $link->domain_rating ) ? (int) $link->domain_rating : 0,
-					isset( $link->my_domain_rating ) ? (int) $link->my_domain_rating : 0
-				);
-				$update_formats[] = '%d';
-			}
-
-			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Update operation on custom table.
-			$wpdb->update(
-				$table_name,
-				$update_data,
-				array( 'id' => absint( $link->id ) ),
-				$update_formats,
-				array( '%d' )
-			);
-
-			usleep( $delay * 1000 );
-		}
-	}
-
-	/**
-	 * Cron: Send expiration reminders
-	 */
-	public function cron_check_reminders() {
-		if ( ! get_option( 'linktrade_email_notifications' ) ) {
-			return;
-		}
-
-		global $wpdb;
-		$table_name = $wpdb->prefix . 'linktrade_links';
-		$days       = absint( get_option( 'linktrade_reminder_days', 14 ) );
-		$email      = sanitize_email( get_option( 'linktrade_notification_email', get_option( 'admin_email' ) ) );
-
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Cron job requires fresh data from custom table.
-		$expiring = $wpdb->get_results(
-			$wpdb->prepare(
-				'SELECT * FROM `' . esc_sql( $table_name ) . '`
-				 WHERE end_date IS NOT NULL
-				 AND end_date <= %s
-				 AND end_date >= CURDATE()
-				 AND reminder_sent = 0',
-				wp_date( 'Y-m-d', strtotime( '+' . $days . ' days' ) )
-			)
-		);
-
-		if ( empty( $expiring ) ) {
-			return;
-		}
-
-		/* translators: %d: number of expiring links */
-		$subject = sprintf( __( '[Linktrade Monitor] %d links expiring soon', 'linktrade-monitor' ), count( $expiring ) );
-
-		/* translators: %d: number of days */
-		$message = sprintf( __( 'The following links will expire in the next %d days:', 'linktrade-monitor' ), $days ) . "\n\n";
-
-		foreach ( $expiring as $link ) {
-			$days_left = ceil( ( strtotime( $link->end_date ) - time() ) / 86400 );
-			/* translators: 1: partner name, 2: end date, 3: days remaining */
-			$message .= sprintf( __( '- %1$s: %2$s (%3$d days remaining)', 'linktrade-monitor' ), $link->partner_name, $link->end_date, $days_left ) . "\n";
-
-			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Update operation on custom table.
-			$wpdb->update(
-				$table_name,
-				array(
-					'reminder_sent'      => 1,
-					'reminder_sent_date' => current_time( 'mysql' ),
-				),
-				array( 'id' => absint( $link->id ) ),
-				array( '%d', '%s' ),
-				array( '%d' )
-			);
-		}
-
-		wp_mail( $email, $subject, $message );
-	}
-
-	/**
-	 * Calculate fairness score
+	 * Calculate the fairness score of an exchange.
 	 *
-	 * @param string $my_status      My link status (their link to me).
-	 * @param string $their_status   Their link status (my link to them).
-	 * @param bool   $my_nofollow    My incoming link nofollow.
-	 * @param bool   $their_nofollow My outgoing link nofollow.
-	 * @param int    $partner_dr     Partner's Domain Rating.
-	 * @param int    $my_dr          My Domain Rating.
+	 * The one place this is computed: the scheduled check, the save handler
+	 * and the upgrade routine all call it.
+	 *
+	 * A side that has never been read ("unchecked") or has no reciprocal link
+	 * on record ("not_applicable") is unknown, not removed. Unknown is never
+	 * scored against anybody, so the result stays neutral.
+	 *
+	 * @param string $incoming     Status of the partner's link to us.
+	 * @param string $outgoing     Status of our link to the partner.
+	 * @param bool   $in_nofollow  Partner's link is nofollow.
+	 * @param bool   $out_nofollow Our link is nofollow.
+	 * @param int    $partner_dr   Partner's Domain Rating.
+	 * @param int    $my_dr        Our Domain Rating.
 	 * @return int Fairness score (0-100).
 	 */
-	private function calculate_fairness( $my_status, $their_status, $my_nofollow, $their_nofollow, $partner_dr = 0, $my_dr = 0 ) {
-		// Base fairness from link status.
-		if ( 'online' === $my_status && 'offline' === $their_status ) {
-			return 0; // Partner removed their link but I still link to them.
+	public static function fairness( $incoming, $outgoing, $in_nofollow, $out_nofollow, $partner_dr = 0, $my_dr = 0 ) {
+		$known = array( 'online', 'warning', 'offline' );
+		if ( ! in_array( $incoming, $known, true ) || ! in_array( $outgoing, $known, true ) ) {
+			return 100;
 		}
-		if ( 'offline' === $my_status && 'offline' === $their_status ) {
-			return 50; // Both links offline.
+
+		$in_ok  = ( 'offline' !== $incoming );
+		$out_ok = ( 'offline' !== $outgoing );
+
+		// Partner dropped our link while we still link to them.
+		if ( ! $in_ok && $out_ok ) {
+			return 0;
+		}
+		// We dropped their link, our own debt.
+		if ( $in_ok && ! $out_ok ) {
+			return 25;
+		}
+		// Both links gone.
+		if ( ! $in_ok && ! $out_ok ) {
+			return 50;
 		}
 
 		$base_score = 100;
 
-		// Nofollow penalty.
-		if ( ! $my_nofollow && $their_nofollow ) {
-			$base_score = 60; // I give dofollow, partner gives nofollow.
+		// We give a followed link, the partner only a nofollow.
+		if ( ! $out_nofollow && $in_nofollow ) {
+			$base_score = 60;
 		}
 
-		// DR comparison adjustment (only if both values are set).
-		if ( $partner_dr > 0 && $my_dr > 0 ) {
-			$dr_diff = $my_dr - $partner_dr;
+		// Their link is there but on a devalued (noindex) page.
+		if ( 'warning' === $incoming && 100 === $base_score ) {
+			$base_score = 70;
+		}
 
-			// If my DR is higher, I'm giving more value than I receive.
-			if ( $dr_diff > 0 ) {
-				// Reduce fairness: -2 points per DR difference, max -40.
-				$dr_penalty = min( 40, $dr_diff * 2 );
-				$base_score = max( 0, $base_score - $dr_penalty );
+		// We are the stronger domain and give away more than we receive.
+		if ( $partner_dr > 0 && $my_dr > 0 && $my_dr > $partner_dr ) {
+			$base_score = max( 0, $base_score - min( 40, ( $my_dr - $partner_dr ) * 2 ) );
+		}
+
+		return (int) $base_score;
+	}
+
+	/**
+	 * Recalculate the stored fairness score of every exchange from the
+	 * statuses on record. Used once after an update that changed the formula.
+	 *
+	 * @return int Number of rows rewritten.
+	 */
+	public static function recalculate_all_fairness() {
+		global $wpdb;
+		$table_name = $wpdb->prefix . 'linktrade_links';
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- One-time maintenance on custom table.
+		$links = $wpdb->get_results( 'SELECT id, status, backlink_status, backlink_url, is_nofollow, backlink_is_nofollow, domain_rating, my_domain_rating, fairness_score FROM `' . esc_sql( $table_name ) . "` WHERE category = 'exchange'" );
+
+		if ( empty( $links ) ) {
+			return 0;
+		}
+
+		$changed = 0;
+		foreach ( $links as $link ) {
+			$outgoing = empty( $link->backlink_url ) ? 'not_applicable' : $link->backlink_status;
+			$score    = self::fairness(
+				$link->status,
+				$outgoing,
+				(bool) $link->is_nofollow,
+				(bool) $link->backlink_is_nofollow,
+				(int) $link->domain_rating,
+				(int) $link->my_domain_rating
+			);
+
+			if ( (int) $link->fairness_score === $score ) {
+				continue;
 			}
+
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- One-time maintenance on custom table.
+			$wpdb->update( $table_name, array( 'fairness_score' => $score ), array( 'id' => absint( $link->id ) ), array( '%d' ), array( '%d' ) );
+			++$changed;
 		}
 
-		return $base_score;
+		wp_cache_delete( 'linktrade_quick_stats' );
+		wp_cache_delete( 'linktrade_full_stats' );
+
+		return $changed;
 	}
 }

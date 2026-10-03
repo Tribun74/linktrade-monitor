@@ -7,7 +7,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
 
 /**
@@ -15,44 +15,42 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Linktrade_Activator {
 
-    /**
-     * Activate the plugin
-     */
-    public static function activate() {
-        // Check if this is a fresh install or upgrade
-        $current_version = get_option( 'linktrade_version', '0.0.0' );
+	/**
+	 * Activate the plugin
+	 */
+	public static function activate() {
+		// Check if this is a fresh install or upgrade
+		$current_version = get_option( 'linktrade_version', '0.0.0' );
 
-        if ( version_compare( $current_version, LINKTRADE_VERSION, '<' ) ) {
-            self::create_tables();
-            self::run_migrations( $current_version );
-        }
+		if ( version_compare( $current_version, LINKTRADE_VERSION, '<' ) ) {
+			self::create_tables();
+			self::run_migrations( $current_version );
+		}
 
-        self::set_default_options();
-        self::schedule_crons();
+		self::ensure_columns();
+		self::set_default_options();
+		self::schedule_crons();
 
-        // Save version
-        update_option( 'linktrade_version', LINKTRADE_VERSION );
+		// Save version
+		update_option( 'linktrade_version', LINKTRADE_VERSION );
 
-        // Save install date for 14-day notice (only on first install).
-        if ( ! get_option( 'linktrade_install_date' ) ) {
-            update_option( 'linktrade_install_date', time() );
-        }
+		// Save install date for 14-day notice (only on first install).
+		if ( ! get_option( 'linktrade_install_date' ) ) {
+			update_option( 'linktrade_install_date', time() );
+		}
+	}
 
-        // Flush rewrite rules
-        flush_rewrite_rules();
-    }
+	/**
+	 * Create database tables
+	 */
+	private static function create_tables() {
+		global $wpdb;
 
-    /**
-     * Create database tables
-     */
-    private static function create_tables() {
-        global $wpdb;
+		$charset_collate = $wpdb->get_charset_collate();
 
-        $charset_collate = $wpdb->get_charset_collate();
-
-        // Main links table
-        $table_links = $wpdb->prefix . 'linktrade_links';
-        $sql_links = "CREATE TABLE $table_links (
+		// Main links table
+		$table_links = $wpdb->prefix . 'linktrade_links';
+		$sql_links   = "CREATE TABLE $table_links (
             id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
             updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -69,6 +67,7 @@ class Linktrade_Activator {
             partner_url TEXT NOT NULL,
             target_url TEXT NOT NULL,
             anchor_text VARCHAR(255),
+            found_anchor VARCHAR(255),
 
             /* URLs - Reciprocal link (for exchanges) */
             backlink_url TEXT,
@@ -81,6 +80,7 @@ class Linktrade_Activator {
             is_nofollow TINYINT(1) DEFAULT 0,
             is_noindex TINYINT(1) DEFAULT 0,
             is_sponsored TINYINT(1) DEFAULT 0,
+            follow_agreed TINYINT(1) DEFAULT 1,
             redirect_url TEXT,
             last_check DATETIME,
 
@@ -132,9 +132,9 @@ class Linktrade_Activator {
             INDEX idx_domain_rating (domain_rating)
         ) $charset_collate;";
 
-        // Change log
-        $table_log = $wpdb->prefix . 'linktrade_log';
-        $sql_log = "CREATE TABLE $table_log (
+		// Change log
+		$table_log = $wpdb->prefix . 'linktrade_log';
+		$sql_log   = "CREATE TABLE $table_log (
             id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             link_id BIGINT UNSIGNED NOT NULL,
             action VARCHAR(50) NOT NULL,
@@ -147,9 +147,9 @@ class Linktrade_Activator {
             INDEX idx_action (action)
         ) $charset_collate;";
 
-        // Check history
-        $table_checks = $wpdb->prefix . 'linktrade_checks';
-        $sql_checks = "CREATE TABLE $table_checks (
+		// Check history
+		$table_checks = $wpdb->prefix . 'linktrade_checks';
+		$sql_checks   = "CREATE TABLE $table_checks (
             id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             link_id BIGINT UNSIGNED NOT NULL,
             check_type ENUM('incoming', 'outgoing') DEFAULT 'incoming',
@@ -167,89 +167,131 @@ class Linktrade_Activator {
             INDEX idx_check_type (check_type)
         ) $charset_collate;";
 
-        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-        
-        // Check if tables exist before running dbDelta
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+
+		// Check if tables exist before running dbDelta
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table creation check.
-        if ( $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $table_links ) ) !== $table_links ) {
-            dbDelta( $sql_links );
-        }
-        
+		if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_links ) ) !== $table_links ) {
+			dbDelta( $sql_links );
+		}
+
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table creation check.
-        if ( $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $table_log ) ) !== $table_log ) {
-            dbDelta( $sql_log );
-        }
-        
+		if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_log ) ) !== $table_log ) {
+			dbDelta( $sql_log );
+		}
+
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table creation check.
-        if ( $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $table_checks ) ) !== $table_checks ) {
-            dbDelta( $sql_checks );
-        }
-    }
+		if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_checks ) ) !== $table_checks ) {
+			dbDelta( $sql_checks );
+		}
+	}
 
-    /**
-     * Set default options
-     */
-    private static function set_default_options() {
-        $defaults = array(
-            'linktrade_check_frequency'      => 'monthly', // once a month
-            'linktrade_email_notifications'  => true,
-            'linktrade_notification_email'   => get_option( 'admin_email' ),
-            'linktrade_batch_size'           => 50,
-            'linktrade_request_delay'        => 3000,
-            'linktrade_reminder_days'        => 14,
-            'linktrade_reminder_enabled'     => true,
-            'linktrade_fairness_alert'       => true,
-            'linktrade_fairness_threshold'   => 50,
-        );
+	/**
+	 * Add the columns introduced in 1.4.0 if the table does not have them.
+	 *
+	 * Runs on every activation, not only on a version change: the table can
+	 * also come from the Pro plugin or from an older version of this one.
+	 */
+	public static function ensure_columns() {
+		global $wpdb;
+		$table_name = $wpdb->prefix . 'linktrade_links';
 
-        foreach ( $defaults as $key => $value ) {
-            if ( get_option( $key ) === false ) {
-                update_option( $key, $value );
-            }
-        }
-    }
+		$columns = array(
+			'found_anchor'  => 'VARCHAR(255) NULL',
+			'follow_agreed' => 'TINYINT(1) DEFAULT 1',
+		);
 
-    /**
-     * Schedule cron jobs - Monthly check (once a month)
-     */
-    private static function schedule_crons() {
-        // Monthly link check (once a month)
-        if ( ! wp_next_scheduled( 'linktrade_check_links' ) ) {
-            wp_schedule_event( time(), 'monthly', 'linktrade_check_links' );
-        }
+        // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Schema check on the plugin's own table; names are fixed strings.
+		$existing = $wpdb->get_col( 'SHOW COLUMNS FROM `' . esc_sql( $table_name ) . '`', 0 );
+		if ( empty( $existing ) ) {
+			return;
+		}
 
-        // Daily reminder check
-        if ( ! wp_next_scheduled( 'linktrade_check_reminders' ) ) {
-            wp_schedule_event( time(), 'daily', 'linktrade_check_reminders' );
-        }
-    }
+		foreach ( $columns as $column => $definition ) {
+			if ( ! in_array( $column, $existing, true ) ) {
+				$wpdb->query( 'ALTER TABLE `' . esc_sql( $table_name ) . '` ADD COLUMN `' . esc_sql( $column ) . '` ' . $definition );
+			}
+		}
+        // phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+	}
 
-    /**
-     * Run database migrations for upgrades
-     *
-     * @param string $from_version Previous version.
-     */
-    private static function run_migrations( $from_version ) {
-        global $wpdb;
-        $table_name = $wpdb->prefix . 'linktrade_links';
+	/**
+	 * Set default options
+	 */
+	private static function set_default_options() {
+		$defaults = array(
+			'linktrade_check_frequency'     => 'weekly',
+			'linktrade_email_notifications' => true,
+			'linktrade_notification_email'  => get_option( 'admin_email' ),
+			'linktrade_batch_size'          => 50,
+			'linktrade_request_delay'       => 1000,
+			'linktrade_reminder_days'       => 14,
+			'linktrade_reminder_enabled'    => true,
+			'linktrade_fairness_alert'      => true,
+			'linktrade_fairness_threshold'  => 50,
+		);
 
-        // Migration for v1.1.1: Add my_domain_rating column
-        if ( version_compare( $from_version, '1.1.1', '<' ) ) {
-            // Check if column exists.
+		foreach ( $defaults as $key => $value ) {
+			if ( get_option( $key ) === false ) {
+				update_option( $key, $value );
+			}
+		}
+	}
+
+	/**
+	 * Schedule cron jobs
+	 */
+	private static function schedule_crons() {
+		require_once LINKTRADE_PLUGIN_DIR . 'includes/class-runner.php';
+		Linktrade_Runner::ensure_schedule();
+	}
+
+	/**
+	 * Run database migrations for upgrades
+	 *
+	 * @param string $from_version Previous version.
+	 */
+	private static function run_migrations( $from_version ) {
+		global $wpdb;
+		$table_name = $wpdb->prefix . 'linktrade_links';
+
+		// Migration for v1.1.1: Add my_domain_rating column
+		if ( version_compare( $from_version, '1.1.1', '<' ) ) {
+			// Check if column exists.
             // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- One-time migration, table name is safe.
-            $column_exists = $wpdb->get_results(
-                $wpdb->prepare(
-                    'SHOW COLUMNS FROM `' . esc_sql( $table_name ) . '` LIKE %s',
-                    'my_domain_rating'
-                )
-            );
+			$column_exists = $wpdb->get_results(
+				$wpdb->prepare(
+					'SHOW COLUMNS FROM `' . esc_sql( $table_name ) . '` LIKE %s',
+					'my_domain_rating'
+				)
+			);
             // phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
 
-            if ( empty( $column_exists ) ) {
+			if ( empty( $column_exists ) ) {
                 // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- One-time migration, table name is safe.
-                $wpdb->query( 'ALTER TABLE `' . esc_sql( $table_name ) . '` ADD COLUMN `my_domain_rating` TINYINT UNSIGNED DEFAULT 0 AFTER `domain_rating`' );
+				$wpdb->query( 'ALTER TABLE `' . esc_sql( $table_name ) . '` ADD COLUMN `my_domain_rating` TINYINT UNSIGNED DEFAULT 0 AFTER `domain_rating`' );
                 // phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
-            }
-        }
-    }
+			}
+		}
+
+		// 1.3.4: the fairness formula no longer scores a side that was never
+		// read or is not on record, and 1.3.3 corrected the direction of the
+		// score. Stored values from older versions are rewritten once.
+		if ( version_compare( $from_version, '0.0.0', '>' ) && version_compare( $from_version, '1.3.4', '<' ) ) {
+			require_once LINKTRADE_PLUGIN_DIR . 'includes/class-linktrade.php';
+			Linktrade::recalculate_all_fairness();
+		}
+
+		// 1.4.0: checks run weekly and in small portions. The old pause of
+		// three seconds between requests came from the single long monthly run.
+		if ( version_compare( $from_version, '0.0.0', '>' ) && version_compare( $from_version, '1.4.0', '<' ) ) {
+			update_option( 'linktrade_check_frequency', 'weekly' );
+			// 1.4.0 recognises more (sponsored, ugc, robots variants). The first
+			// run records that without mailing it as if it had just happened.
+			update_option( 'linktrade_baseline_run', 1, false );
+			if ( 3000 === (int) get_option( 'linktrade_request_delay' ) ) {
+				update_option( 'linktrade_request_delay', 1000 );
+			}
+		}
+	}
 }

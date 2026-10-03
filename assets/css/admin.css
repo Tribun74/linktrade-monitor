@@ -1584,7 +1584,7 @@ input[type="file"]:hover {
 }
 
 .lt-dr-field label::before {
-    content: '📊';
+    content: none;
     font-size: 12px;
 }
 
@@ -1639,3 +1639,328 @@ input[type="file"]:hover {
         margin-top: 10px;
     }
 }
+
+/* ==========================================================================
+   1.4.0: attention list, schedule box, first steps, history, mobile tables
+   ========================================================================== */
+
+.linktrade-tab .tab-icon.dashicons {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+}
+
+.linktrade-header-btn .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+}
+
+.linktrade-card h2 .dashicons.card-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: var(--lt-primary);
+    vertical-align: text-bottom;
+}
+
+/* Tables scroll inside their card instead of pushing the page sideways. */
+.linktrade-table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.status.unreadable {
+    background: var(--lt-gray-100);
+    color: var(--lt-gray-600);
+}
+
+.status.unreadable .status-dot {
+    background: var(--lt-gray-400);
+}
+
+.linktrade-notice.notice-info {
+    background: #eff6ff;
+    border: 1px solid #93c5fd;
+}
+
+.linktrade-notice.notice-warning {
+    background: #fffbeb;
+    border: 1px solid #fcd34d;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.action-btn.is-busy .dashicons {
+    animation: lt-spin 1s linear infinite;
+}
+
+@keyframes lt-spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .action-btn.is-busy .dashicons { animation: none; }
+}
+
+/* Needs your attention */
+.lt-attention { margin-bottom: 24px; }
+
+.lt-attention-ok {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    color: #047857;
+    font-weight: 600;
+}
+
+.lt-attention-group {
+    border-left: 4px solid var(--lt-gray-300);
+    padding: 4px 0 4px 16px;
+    margin: 0 0 20px;
+}
+
+.lt-attention-group:last-child { margin-bottom: 0; }
+.lt-attention-red { border-left-color: var(--lt-danger); }
+.lt-attention-orange { border-left-color: var(--lt-warning); }
+
+.lt-attention-group h3 {
+    margin: 0 0 2px;
+    font-size: 15px;
+    color: var(--lt-dark);
+}
+
+.lt-attention-count {
+    display: inline-block;
+    min-width: 22px;
+    padding: 1px 7px;
+    margin-left: 6px;
+    border-radius: 999px;
+    background: var(--lt-gray-100);
+    color: var(--lt-gray-700);
+    font-size: 12px;
+    text-align: center;
+}
+
+.lt-attention-group ul { margin: 8px 0 0; }
+
+.lt-attention-group li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 16px;
+    padding: 8px 0;
+    margin: 0;
+    border-top: 1px solid var(--lt-gray-100);
+}
+
+.lt-attention-main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 12px;
+    min-width: 0;
+}
+
+.lt-attention-main a { overflow-wrap: anywhere; }
+.lt-attention-main em { color: #92400e; font-style: normal; }
+.lt-attention-main small { color: var(--lt-gray-500); }
+.lt-attention-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* Schedule box */
+.lt-schedule-list { margin: 0 0 12px; }
+
+.lt-schedule-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 8px 0;
+    margin: 0;
+    border-bottom: 1px solid var(--lt-gray-100);
+}
+
+.lt-schedule-list span { color: var(--lt-gray-600); }
+.lt-schedule-list small { color: var(--lt-gray-500); font-weight: 400; }
+
+.lt-schedule-error {
+    padding: 10px 12px;
+    border-left: 4px solid var(--lt-danger);
+    background: #fef2f2;
+    color: #991b1b;
+}
+
+.lt-pro-line {
+    margin: 24px 0 0;
+    color: var(--lt-gray-500);
+    font-size: 13px;
+}
+
+/* First steps */
+.lt-first-steps { max-width: 640px; }
+.lt-first-steps h2 { margin-top: 0; }
+
+/* Find my link */
+.lt-find-row .button { margin-bottom: 4px; }
+
+.linktrade-find-list { margin: 8px 0 0; }
+
+.linktrade-find-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 10px;
+    margin: 0 0 6px;
+    background: #fff;
+    border: 1px solid var(--lt-gray-200);
+    border-radius: var(--lt-radius-sm);
+}
+
+.linktrade-find-list small { color: var(--lt-gray-500); overflow-wrap: anywhere; }
+
+/* History and message window */
+#linktrade-info-body h4 { margin: 16px 0 8px; }
+#linktrade-info-body h4:first-child { margin-top: 0; }
+
+.linktrade-message-text {
+    width: 100%;
+    font-family: inherit;
+    line-height: 1.5;
+}
+
+.linktrade-import-problems {
+    margin: 0 12px 12px 28px;
+    list-style: disc;
+}
+
+/* Keyboard focus is always visible. */
+.linktrade-wrap a:focus-visible,
+.linktrade-wrap button:focus-visible,
+.linktrade-modal button:focus-visible {
+    outline: 2px solid var(--lt-primary-dark);
+    outline-offset: 2px;
+}
+
+@media (max-width: 782px) {
+    .linktrade-table { min-width: 720px; }
+    .field-reference { min-width: 560px; }
+    .linktrade-tabs { overflow-x: auto; flex-wrap: nowrap; }
+    .linktrade-tab { white-space: nowrap; }
+    .lt-attention-group li { align-items: flex-start; }
+    .linktrade-find-list li { flex-direction: column; align-items: flex-start; }
+    .csv-example pre { white-space: pre; }
+}
+
+/* List: selection, sorting, pages */
+.linktrade-bulk {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 12px;
+}
+
+.linktrade-bulk-info {
+    margin-left: auto;
+    color: var(--lt-gray-600);
+}
+
+.linktrade-bulk-info a { margin-left: 8px; }
+
+.linktrade-table .lt-check-col {
+    width: 32px;
+    padding-right: 0;
+}
+
+.linktrade-table th a.lt-sort {
+    color: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.linktrade-table th a.lt-sort:hover,
+.linktrade-table th a.lt-sort.is-active { color: var(--lt-primary-dark); }
+
+.lt-sort-arrow {
+    margin-left: 4px;
+    font-size: 9px;
+}
+
+.linktrade-filters { align-items: center; }
+
+.linktrade-pagination {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+.linktrade-pagination .page-numbers {
+    min-width: 32px;
+    padding: 5px 9px;
+    border: 1px solid var(--lt-gray-300);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--lt-gray-700);
+    text-align: center;
+    text-decoration: none;
+}
+
+.linktrade-pagination .page-numbers.current {
+    background: var(--lt-primary-dark);
+    border-color: var(--lt-primary-dark);
+    color: #fff;
+}
+
+/* Review hint */
+.linktrade-review {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 16px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    background: #fff;
+    border: 1px solid var(--lt-gray-200);
+    border-left: 4px solid var(--lt-primary);
+    border-radius: var(--lt-radius-sm);
+}
+
+.linktrade-review p { margin: 0; }
+
+.lt-outgoing-scan { margin-top: 24px; }
+
+/* ==========================================================================
+   Contrast: every text pair at least 4.5:1 (WCAG AA), measured in the browser
+   ========================================================================== */
+.linktrade-tab { color: var(--lt-gray-600); }
+.linktrade-tab:hover,
+.linktrade-tab.active { color: var(--lt-primary-dark); border-bottom-color: var(--lt-primary-dark); }
+.tab-badge { background: var(--lt-primary-dark); }
+.tab-badge.badge-warning { background: #b45309; color: #fff; }
+.lt-pro-line { color: var(--lt-gray-600); }
+
+.status.offline { color: #b91c1c; }
+.status.warning { color: #92400e; }
+.status.unchecked { color: var(--lt-gray-600); }
+.category-tag.free { color: #065f46; }
+.category-tag.paid { color: #92400e; }
+.dr-badge.dr-mine { color: #92400e; }
+.dr-diff.dr-positive { color: #065f46; }
+.dr-diff.dr-negative { color: #991b1b; }
+
+.health-score.health-excellent { background: #047857; }
+.health-score.health-good { background: #1d4ed8; }
+.health-score.health-fair { background: #b45309; }
+.health-score.health-poor { background: #b91c1c; }
+
+.lt-onboarding-btn { background: #047857; }
+.lt-onboarding-btn:hover { background: #065f46; }
+
+.lt-attention-more { justify-content: flex-start; }

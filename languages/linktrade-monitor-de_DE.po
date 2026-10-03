@@ -1,38 +1,27 @@
-# German translation for Linktrade Monitor
-# Copyright (C) 2025 Frank Stemmler
-# This file is distributed under the same license as the Linktrade Monitor package.
-# Frank Stemmler, 2025.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: Linktrade Monitor 1.1.1\n"
-"Report-Msgid-Bugs-To: https://frank-stemmler.de\n"
-"POT-Creation-Date: 2025-01-11 12:00+0000\n"
-"PO-Revision-Date: 2025-01-11 12:00+0000\n"
-"Last-Translator: Frank Stemmler\n"
-"Language-Team: German\n"
+"Project-Id-Version: Linktrade Monitor 1.4.0\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4\n"
 
-# Plugin action links
+msgid "Linktrade Monitor Pro is active and includes everything the free plugin does. The free plugin is switched off while Pro runs. Your links are kept, whichever of the two you remove."
+msgstr "Linktrade Monitor Pro ist aktiv und enthält alles, was das kostenlose Plugin kann. Das kostenlose Plugin ist abgeschaltet, solange Pro läuft. Deine Links bleiben erhalten, egal welches der beiden du entfernst."
+
 msgid "Settings"
 msgstr "Einstellungen"
 
-msgid "Once Monthly"
-msgstr "Einmal monatlich"
+msgid "Pro version"
+msgstr "Pro-Version"
 
-# Admin Menu
 msgid "Linktrade Monitor"
 msgstr "Linktrade Monitor"
 
 msgid "Linktrade"
 msgstr "Linktrade"
 
-# Admin JS strings
 msgid "Really delete this link?"
 msgstr "Diesen Link wirklich löschen?"
 
@@ -45,21 +34,207 @@ msgstr "Gespeichert!"
 msgid "An error occurred"
 msgstr "Ein Fehler ist aufgetreten"
 
-# Header
-msgid "New Link"
-msgstr "Neuer Link"
+msgid "The request failed. Your session may have expired: reload the page and try again."
+msgstr "Die Anfrage ist fehlgeschlagen. Vielleicht ist deine Sitzung abgelaufen: Lade die Seite neu und versuche es noch einmal."
 
-# Check frequency
-msgid "Every 2 Weeks"
-msgstr "Alle 2 Wochen"
+msgid "Checking..."
+msgstr "Wird geprüft ..."
 
-msgid "Link checked."
-msgstr "Link geprüft."
+msgid "Searching..."
+msgstr "Wird gesucht ..."
 
-msgid "Backlink checked."
-msgstr "Backlink geprüft."
+msgid "Exporting..."
+msgstr "Wird exportiert ..."
 
-# Tabs
+msgid "Importing..."
+msgstr "Wird importiert ..."
+
+msgid "Export failed."
+msgstr "Export fehlgeschlagen."
+
+msgid "Import failed. Please try again."
+msgstr "Import fehlgeschlagen. Bitte versuche es noch einmal."
+
+msgid "Please select a CSV file."
+msgstr "Bitte wähle eine CSV-Datei aus."
+
+msgid "Exported %d links."
+msgstr "%d Links exportiert."
+
+msgid "Copied"
+msgstr "Kopiert"
+
+msgid "Copy text"
+msgstr "Text kopieren"
+
+msgid "Use this"
+msgstr "Übernehmen"
+
+msgid "No status changes recorded yet."
+msgstr "Noch keine Statuswechsel aufgezeichnet."
+
+msgid "No checks recorded yet."
+msgstr "Noch keine Prüfungen aufgezeichnet."
+
+msgid "Status changes"
+msgstr "Statuswechsel"
+
+msgid "Recent checks"
+msgstr "Letzte Prüfungen"
+
+msgid "History"
+msgstr "Verlauf"
+
+msgid "Message to partner"
+msgstr "Nachricht an den Partner"
+
+msgid "Nothing is sent from here. Copy the text into your own email and adjust it."
+msgstr "Von hier wird nichts versendet. Kopiere den Text in deine eigene E-Mail und passe ihn an."
+
+msgid "Contact on record"
+msgstr "Hinterlegter Kontakt"
+
+msgid "Partner Information"
+msgstr "Partner-Informationen"
+
+msgid "Partner Name"
+msgstr "Partner-Name"
+
+msgid "Contact (Email)"
+msgstr "Kontakt (E-Mail)"
+
+msgid "Category"
+msgstr "Kategorie"
+
+msgid "Link Exchange"
+msgstr "Linktausch"
+
+msgid "Paid Link"
+msgstr "Gekaufter Link"
+
+msgid "Free"
+msgstr "Kostenlos"
+
+msgid "Incoming Link"
+msgstr "Eingehender Link"
+
+msgid "Partner Page URL"
+msgstr "Partner-Seiten-URL"
+
+msgid "Your Linked URL"
+msgstr "Deine verlinkte URL"
+
+msgid "Anchor Text"
+msgstr "Ankertext"
+
+msgid "Outgoing Link"
+msgstr "Ausgehender Link"
+
+msgid "Your Page URL"
+msgstr "Deine Seiten-URL"
+
+msgid "Partner Target URL"
+msgstr "Partner-Ziel-URL"
+
+msgid "Additional Info"
+msgstr "Weitere Angaben"
+
+msgid "Start Date"
+msgstr "Startdatum"
+
+msgid "Expiration Date"
+msgstr "Ablaufdatum"
+
+msgid "Partner DR"
+msgstr "Partner DR"
+
+msgid "My DR"
+msgstr "Mein DR"
+
+msgid "Notes"
+msgstr "Notizen"
+
+msgid "Save Changes"
+msgstr "Änderungen speichern"
+
+msgid "Agreed anchor text"
+msgstr "Vereinbarter Ankertext"
+
+msgid "A normal, followed link was agreed"
+msgstr "Vereinbart ist ein normaler Link ohne nofollow"
+
+msgid "Record for a complaint"
+msgstr "Nachweis für eine Reklamation"
+
+msgid "What the checks found, with dates. Copy it into your message to the partner or seller."
+msgstr "Was die Prüfungen gefunden haben, mit Datum. Kopiere es in deine Nachricht an den Partner oder Verkäufer."
+
+msgid "Select at least one link first."
+msgstr "Wähle zuerst mindestens einen Link aus."
+
+msgid "Choose what to do with the selected links."
+msgstr "Wähle aus, was mit den markierten Links geschehen soll."
+
+msgid "Really delete %d links? Their history is deleted too."
+msgstr "%d Links wirklich löschen? Ihr Verlauf wird mitgelöscht."
+
+msgid "Checking %1$d of %2$d ..."
+msgstr "Prüfe %1$d von %2$d ..."
+
+msgid "All selected links were checked."
+msgstr "Alle markierten Links wurden geprüft."
+
+msgid "Searching, part %1$d of %2$d ..."
+msgstr "Suche, Teil %1$d von %2$d ..."
+
+msgid "No links to other websites found that are not monitored yet."
+msgstr "Keine Links zu anderen Websites gefunden, die noch nicht überwacht werden."
+
+msgid "Domain"
+msgstr "Domain"
+
+msgid "Pages"
+msgstr "Seiten"
+
+msgid "Example"
+msgstr "Beispiel"
+
+msgid "Monitor"
+msgstr "Überwachen"
+
+msgid "Sending..."
+msgstr "Wird gesendet ..."
+
+msgid "Reading the file..."
+msgstr "Datei wird gelesen ..."
+
+msgid "First lines of the file"
+msgstr "Die ersten Zeilen der Datei"
+
+msgid "Import these links now"
+msgstr "Diese Links jetzt importieren"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "There is nothing to import in this file."
+msgstr "In dieser Datei gibt es nichts zu importieren."
+
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "Docs"
+msgstr "Anleitung"
+
+msgid "Support"
+msgstr "Hilfe"
+
+msgid "Linktrade Monitor has been watching your links for a month now. If it is useful to you, a %1$sshort review on WordPress.org%2$s helps other site owners find it."
+msgstr "Linktrade Monitor passt jetzt seit einem Monat auf deine Links auf. Wenn es dir nützt, hilft eine %1$skurze Bewertung auf WordPress.org%2$s anderen, es zu finden."
+
+msgid "Do not show again"
+msgstr "Nicht mehr anzeigen"
+
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -72,43 +247,161 @@ msgstr "Fairness"
 msgid "New"
 msgstr "Neu"
 
-# Dashboard
+msgid "Import/Export"
+msgstr "Import/Export"
+
+msgid "Partner removed the link to you"
+msgstr "Partner hat den Link zu dir entfernt"
+
+msgid "Ask the partner, or remove your link to them."
+msgstr "Frag beim Partner nach oder nimm deinen Link zu ihm heraus."
+
+msgid "Your link to the partner is missing"
+msgstr "Dein Link zum Partner fehlt"
+
+msgid "You owe this link. Put it back before the partner notices."
+msgstr "Diesen Link schuldest du. Setz ihn wieder ein, bevor der Partner es bemerkt."
+
+msgid "Link is there, but devalued"
+msgstr "Link ist da, aber entwertet"
+
+msgid "nofollow, sponsored, a noindex page or a link to a different page pass little or no value."
+msgstr "nofollow, sponsored, eine Seite auf noindex oder ein Link auf eine andere Seite geben wenig oder nichts weiter."
+
+msgid "Anchor text differs from the agreement"
+msgstr "Ankertext weicht von der Vereinbarung ab"
+
+msgid "Ask the partner to restore the agreed text, or accept the new one by editing the link."
+msgstr "Bitte den Partner, den vereinbarten Text wieder einzusetzen, oder übernimm den neuen, indem du den Link bearbeitest."
+
+msgid "Agreement ends soon or has ended"
+msgstr "Vereinbarung endet bald oder ist beendet"
+
+msgid "Renew it or let it run out on purpose."
+msgstr "Verlängere sie oder lass sie bewusst auslaufen."
+
+msgid "Could not be checked"
+msgstr "Konnte nicht geprüft werden"
+
+msgid "The page blocks automated requests or the server did not answer. Look at it in your browser."
+msgstr "Die Seite blockiert automatische Abrufe oder der Server hat nicht geantwortet. Sieh sie dir im Browser an."
+
+msgid "found \"%1$s\", agreed \"%2$s\""
+msgstr "gefunden „%1$s“, vereinbart „%2$s“"
+
+msgid "ended"
+msgstr "beendet"
+
+msgid "points to another page"
+msgstr "zeigt auf eine andere Seite"
+
+msgid "%s ago"
+msgstr "vor %s"
+
+msgid "Automatic check"
+msgstr "Automatische Prüfung"
+
+msgid "The weekly check is not scheduled, so your links are not being checked."
+msgstr "Die wöchentliche Prüfung ist nicht eingeplant, deine Links werden deshalb nicht geprüft."
+
+msgid "Deactivate and reactivate the plugin. If that does not help, ask your host whether WP-Cron is available."
+msgstr "Deaktiviere das Plugin und aktiviere es wieder. Hilft das nicht, frage deinen Hoster, ob WP-Cron verfügbar ist."
+
+msgid "Next check"
+msgstr "Nächste Prüfung"
+
+msgid "Last complete check"
+msgstr "Letzte vollständige Prüfung"
+
+msgid "(%1$d links, %2$d changes)"
+msgstr "(%1$d Links, %2$d Änderungen)"
+
+msgid "not yet"
+msgstr "noch keine"
+
+msgid "Check in progress"
+msgstr "Prüfung läuft"
+
+msgid "The last report could not be sent by email. Check the notification address in the settings and whether this site can send mail."
+msgstr "Der letzte Bericht konnte nicht per E-Mail gesendet werden. Prüfe die Benachrichtigungsadresse in den Einstellungen und ob diese Website E-Mails senden kann."
+
+msgid "WP-Cron is switched off on this site (DISABLE_WP_CRON). The check only runs if a real cron job calls wp-cron.php."
+msgstr "WP-Cron ist auf dieser Website abgeschaltet (DISABLE_WP_CRON). Die Prüfung läuft nur, wenn ein echter Cronjob wp-cron.php aufruft."
+
+msgid "Links are checked once a week, a few at a time, so the check also finishes on small hosting plans."
+msgstr "Links werden einmal pro Woche geprüft, immer einige auf einmal. So wird die Prüfung auch auf kleinem Webspace fertig."
+
 msgid "Total Links"
 msgstr "Gesamte Links"
 
 msgid "Online"
 msgstr "Online"
 
-msgid "active"
-msgstr "aktiv"
-
 msgid "Warnings"
 msgstr "Warnungen"
 
-msgid "Offline / Problems"
-msgstr "Offline / Probleme"
+msgid "Offline"
+msgstr "Offline"
+
+msgid "Needs your attention"
+msgstr "Handlungsbedarf"
+
+msgid "Nothing to do. Every link is where it should be."
+msgstr "Nichts zu tun. Jeder Link steht, wo er stehen soll."
+
+msgid "for %s"
+msgstr "seit %s"
+
+msgid "Check now"
+msgstr "Jetzt prüfen"
 
 msgid "By Category"
 msgstr "Nach Kategorie"
 
-msgid "Link Exchange"
+msgid "Link Exchanges"
 msgstr "Linktausch"
+
+msgid "Reciprocal links"
+msgstr "Links in beide Richtungen"
 
 msgid "Paid Links"
 msgstr "Gekaufte Links"
 
-msgid "Free"
-msgstr "Kostenlos"
+msgid "Purchased backlinks"
+msgstr "Bezahlte Backlinks"
 
-msgid "Average Domain Rating"
-msgstr "Durchschnittliches Domain Rating"
+msgid "Free Backlinks"
+msgstr "Freie Backlinks"
 
-msgid "Recent Links"
-msgstr "Neueste Links"
+msgid "Guest posts, directories"
+msgstr "Gastbeiträge, Verzeichnisse"
 
-# Links tab
+msgid "Managing several websites or buying links regularly? %1$sLinktrade Monitor Pro%2$s adds daily checks, projects for several sites and cost tracking."
+msgstr "Du betreust mehrere Websites oder kaufst regelmäßig Links? %1$sLinktrade Monitor Pro%2$s bringt tägliche Prüfung, Projekte für mehrere Websites und eine Kostenübersicht."
+
+msgid "Check your first link"
+msgstr "Prüfe deinen ersten Link"
+
+msgid "Enter the page that links to you and the page of yours it should link to. The link is checked right away, and from then on once a week."
+msgstr "Trag die Seite ein, die auf dich verlinkt, und deine Seite, auf die sie verlinken soll. Der Link wird sofort geprüft und danach einmal pro Woche."
+
+msgid "e.g. Partner Name"
+msgstr "z.B. Partner-Name"
+
+msgid "The exact page on which the link to you stands."
+msgstr "Die genaue Seite, auf der der Link zu dir steht."
+
+msgid "Save and check"
+msgstr "Speichern und prüfen"
+
+msgid "A link exchange with a link back, an expiry date or notes? Use the %1$sfull form%2$s. Many links at once? %3$sImport a CSV file%4$s."
+msgstr "Ein Linktausch mit Rücklink, ein Ablaufdatum oder Notizen? Nimm das %1$sausführliche Formular%2$s. Viele Links auf einmal? %3$sImportiere eine CSV-Datei%4$s."
+
 msgid "Link Overview"
 msgstr "Link-Übersicht"
+
+msgid "Search links"
+msgstr "Links durchsuchen"
 
 msgid "Search links..."
 msgstr "Links durchsuchen..."
@@ -116,27 +409,50 @@ msgstr "Links durchsuchen..."
 msgid "All Categories"
 msgstr "Alle Kategorien"
 
+msgid "Status"
+msgstr "Status"
+
 msgid "All Status"
 msgstr "Alle Status"
 
 msgid "Warning"
 msgstr "Warnung"
 
-msgid "Offline"
-msgstr "Offline"
-
 msgid "Unchecked"
 msgstr "Ungeprüft"
 
-# Table headers
+msgid "Not verifiable"
+msgstr "Nicht prüfbar"
+
+msgid "Filter"
+msgstr "Filtern"
+
+msgid "Action for selected links"
+msgstr "Aktion für markierte Links"
+
+msgid "Selected links ..."
+msgstr "Markierte Links ..."
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Apply"
+msgstr "Anwenden"
+
+msgid "Show all"
+msgstr "Alle anzeigen"
+
+msgid "Select all links on this page"
+msgstr "Alle Links dieser Seite markieren"
+
 msgid "Partner"
 msgstr "Partner"
 
-msgid "Category"
-msgstr "Kategorie"
+msgid "Health"
+msgstr "Qualität"
 
-msgid "Status"
-msgstr "Status"
+msgid "Start / Expiration"
+msgstr "Start / Ablauf"
 
 msgid "DR"
 msgstr "DR"
@@ -147,11 +463,20 @@ msgstr "Letzte Prüfung"
 msgid "Actions"
 msgstr "Aktionen"
 
+msgid "No links match this search."
+msgstr "Kein Link passt zu dieser Suche."
+
 msgid "No links found. Add your first link!"
 msgstr "Keine Links gefunden. Füge deinen ersten Link hinzu!"
 
-msgid "ago"
-msgstr "her"
+msgid "Select %s"
+msgstr "%s markieren"
+
+msgid "redirects to %s"
+msgstr "leitet weiter auf %s"
+
+msgid "Link health from 0 to 100: status, nofollow and noindex, Domain Rating, age and fairness"
+msgstr "Link-Qualität von 0 bis 100: Status, nofollow und noindex, Domain Rating, Alter und Fairness"
 
 msgid "Never"
 msgstr "Nie"
@@ -159,17 +484,9 @@ msgstr "Nie"
 msgid "Edit"
 msgstr "Bearbeiten"
 
-msgid "Delete"
-msgstr "Löschen"
+msgid "Pages of the link list"
+msgstr "Seiten der Linkliste"
 
-# Categories
-msgid "Exchange"
-msgstr "Tausch"
-
-msgid "Paid"
-msgstr "Gekauft"
-
-# Fairness tab
 msgid "Reciprocity Tracker"
 msgstr "Gegenseitigkeits-Tracker"
 
@@ -179,8 +496,8 @@ msgstr "Überwacht ob beide Seiten beim Linktausch fair bleiben."
 msgid "Fair (both online)"
 msgstr "Fair (beide online)"
 
-msgid "Unfair (partner offline)"
-msgstr "Unfair (Partner offline)"
+msgid "Unfair (one link is missing)"
+msgstr "Unfair (ein Link fehlt)"
 
 msgid "Warning (nofollow etc.)"
 msgstr "Warnung (nofollow etc.)"
@@ -197,61 +514,56 @@ msgstr "Keine Linktausch-Partner gefunden."
 msgid "Not set"
 msgstr "Nicht eingetragen"
 
-# Add form
+msgid "Not rated yet"
+msgstr "Noch nicht bewertet"
+
 msgid "Add New Link"
 msgstr "Neuen Link hinzufügen"
 
-msgid "Partner Information"
-msgstr "Partner-Informationen"
+msgid "Only for time-limited agreements"
+msgstr "Nur für befristete Vereinbarungen"
 
-msgid "Partner Name"
-msgstr "Partner-Name"
+msgid "Backlink you receive"
+msgstr "Backlink den du erhältst"
 
-msgid "Contact (Email)"
-msgstr "Kontakt (E-Mail)"
+msgid "Leave empty to take the text found at the first check. You are told when it changes."
+msgstr "Leer lassen, um den Text der ersten Prüfung zu übernehmen. Du erfährst es, wenn er sich ändert."
 
-msgid "Incoming Link (from partner to you)"
-msgstr "Eingehender Link (von Partner zu dir)"
+msgid "Untick for links where nofollow or sponsored is fine, for example directory entries."
+msgstr "Haken entfernen bei Links, für die nofollow oder sponsored in Ordnung ist, zum Beispiel Verzeichniseinträge."
 
-msgid "Page URL where the link is"
-msgstr "Seiten-URL wo der Link ist"
+msgid "Link you give back"
+msgstr "Gegenlink den du gibst"
 
-msgid "Your URL being linked"
-msgstr "Deine verlinkte URL"
+msgid "Find my link to this partner"
+msgstr "Meinen Link zu diesem Partner finden"
 
-msgid "Anchor Text"
-msgstr "Ankertext"
+msgid "Searches your published posts, pages, menus and widgets for links to the partner's domain."
+msgstr "Durchsucht deine veröffentlichten Beiträge, Seiten, Menüs und Widgets nach Links zur Domain des Partners."
 
-msgid "Reciprocal Link (your link to partner)"
-msgstr "Gegenlink (dein Link zum Partner)"
-
-msgid "Your page with link to partner"
-msgstr "Deine Seite mit Link zum Partner"
-
-msgid "Partner URL you link to"
-msgstr "Partner-URL die du verlinkst"
-
-msgid "Additional Info (optional)"
-msgstr "Zusätzliche Infos (optional)"
-
-msgid "Domain Rating (DR)"
-msgstr "Domain Rating (DR)"
-
-msgid "Notes"
-msgstr "Notizen"
+msgid "Additional notes about this link partnership..."
+msgstr "Zusätzliche Notizen zu dieser Link-Partnerschaft..."
 
 msgid "Save Link"
 msgstr "Link speichern"
 
-# Settings
-msgid "Language"
-msgstr "Sprache"
+msgid "Who do you already link to?"
+msgstr "Auf wen verlinkst du schon?"
 
-msgid "Plugin Language"
-msgstr "Plugin-Sprache"
+msgid "Searches all published posts, pages, menus and widgets for links to other websites and lists the domains. Pick a partner and the form above is filled in with your page and their address."
+msgstr "Durchsucht alle veröffentlichten Beiträge, Seiten, Menüs und Widgets nach Links zu anderen Websites und listet die Domains auf. Wähle einen Partner, und das Formular oben wird mit deiner Seite und seiner Adresse ausgefüllt."
 
-msgid "Choose the language for this plugin interface."
-msgstr "Wähle die Sprache für die Plugin-Oberfläche."
+msgid "Search my site for outgoing links"
+msgstr "Meine Website nach ausgehenden Links durchsuchen"
+
+msgid "Security check failed."
+msgstr "Sicherheitsprüfung fehlgeschlagen."
+
+msgid "Settings saved."
+msgstr "Einstellungen gespeichert."
+
+msgid "The notification address is not a valid email address and was not saved. The other settings were saved."
+msgstr "Die Benachrichtigungsadresse ist keine gültige E-Mail-Adresse und wurde nicht gespeichert. Die übrigen Einstellungen sind gespeichert."
 
 msgid "Notifications"
 msgstr "Benachrichtigungen"
@@ -259,29 +571,146 @@ msgstr "Benachrichtigungen"
 msgid "Notification Email"
 msgstr "Benachrichtigungs-E-Mail"
 
-msgid "Send email notifications for expiring links"
-msgstr "E-Mail-Benachrichtigungen für ablaufende Links senden"
+msgid "Email me when a link disappears, turns nofollow or an agreement is about to end"
+msgstr "E-Mail an mich, wenn ein Link verschwindet, auf nofollow wechselt oder eine Vereinbarung bald endet"
+
+msgid "Also send the weekly summary when nothing has changed"
+msgstr "Wochenbericht auch senden, wenn sich nichts geändert hat"
 
 msgid "Remind me X days before expiration"
 msgstr "Erinnere mich X Tage vor Ablauf"
 
-msgid "Settings saved."
-msgstr "Einstellungen gespeichert."
-
 msgid "Save Settings"
 msgstr "Einstellungen speichern"
 
-# Modal
+msgid "Send a test email"
+msgstr "Testmail senden"
+
+msgid "The plugin uses the language of your WordPress site."
+msgstr "Das Plugin nutzt die Sprache deiner WordPress-Website."
+
+msgid "Export Links"
+msgstr "Links exportieren"
+
+msgid "Download all your links as a CSV file. You can use this for backup or to import into other tools."
+msgstr "Lade alle deine Links als CSV-Datei herunter. Ideal für Backups oder Import in andere Tools."
+
+msgid "Export to CSV"
+msgstr "Als CSV exportieren"
+
+msgid "Import Links"
+msgstr "Links importieren"
+
+msgid "Import links from a CSV file. The file must use the exact column names shown below."
+msgstr "Importiere Links aus einer CSV-Datei. Die Datei muss die unten gezeigten Spaltennamen verwenden."
+
+msgid "CSV File"
+msgstr "CSV-Datei"
+
+msgid "Skip duplicate entries (based on partner_url)"
+msgstr "Duplikate überspringen (basierend auf partner_url)"
+
+msgid "Check file"
+msgstr "Datei prüfen"
+
+msgid "CSV Field Reference"
+msgstr "CSV-Feld-Referenz"
+
+msgid "Your CSV file must include a header row with these exact column names. Required fields are marked with *."
+msgstr "Deine CSV-Datei muss eine Kopfzeile mit genau diesen Spaltennamen enthalten. Pflichtfelder sind mit * markiert."
+
+msgid "Column Name"
+msgstr "Spaltenname"
+
+msgid "Required"
+msgstr "Pflicht"
+
+msgid "Description"
+msgstr "Beschreibung"
+
+msgid "Name of the link partner or website"
+msgstr "Name des Linkpartners oder der Website"
+
+msgid "URL of the page containing the backlink to you"
+msgstr "URL der Seite mit dem Backlink zu dir"
+
+msgid "Your URL that receives the backlink"
+msgstr "Deine URL die den Backlink erhält"
+
+msgid "Link type: exchange, paid, or free"
+msgstr "Linktyp: exchange, paid oder free"
+
+msgid "Contact email of the partner"
+msgstr "Kontakt-E-Mail des Partners"
+
+msgid "The clickable text of the backlink"
+msgstr "Der klickbare Text des Backlinks"
+
+msgid "Your page containing the reciprocal link (for exchanges)"
+msgstr "Deine Seite mit dem Gegenlink (bei Tausch)"
+
+msgid "Partner URL you link to (for exchanges)"
+msgstr "Partner-URL die du verlinkst (bei Tausch)"
+
+msgid "Partner Domain Rating (0-100, from Ahrefs)"
+msgstr "Partner Domain Rating (0-100, von Ahrefs)"
+
+msgid "Your Domain Rating (0-100)"
+msgstr "Dein Domain Rating (0-100)"
+
+msgid "Date the link was placed (YYYY-MM-DD)"
+msgstr "Datum der Linksetzung (JJJJ-MM-TT)"
+
+msgid "Expiration date for paid/timed links (YYYY-MM-DD)"
+msgstr "Ablaufdatum für gekaufte/befristete Links (JJJJ-MM-TT)"
+
+msgid "Additional notes about this link"
+msgstr "Zusätzliche Notizen zu diesem Link"
+
+msgid "Example CSV"
+msgstr "Beispiel-CSV"
+
 msgid "Edit Link"
 msgstr "Link bearbeiten"
 
-# Status labels
+msgid "Close"
+msgstr "Schließen"
+
+msgid "Exchange"
+msgstr "Tausch"
+
+msgid "Paid"
+msgstr "Gekauft"
+
+msgid "Expired"
+msgstr "Abgelaufen"
+
+msgid "%d days left"
+msgstr "Noch %d Tage"
+
+msgid "until"
+msgstr "bis"
+
 msgid "N/A"
 msgstr "N/V"
 
-# AJAX messages
 msgid "Permission denied."
 msgstr "Zugriff verweigert."
+
+msgid "Please enter a partner name."
+msgstr "Bitte einen Partnernamen eintragen."
+
+msgid "Please enter the partner page and your target page as full web addresses (http or https)."
+msgstr "Bitte Partnerseite und eigene Zielseite als vollständige Webadressen eintragen (http oder https)."
+
+msgid "The reciprocal link fields need full web addresses (http or https)."
+msgstr "Die Felder für den Rücklink brauchen vollständige Webadressen (http oder https)."
+
+msgid "Please enter dates as YYYY-MM-DD."
+msgstr "Bitte Datumsangaben im Format JJJJ-MM-TT eintragen."
+
+msgid "Link not found."
+msgstr "Link nicht gefunden."
 
 msgid "Link updated successfully."
 msgstr "Link erfolgreich aktualisiert."
@@ -289,39 +718,327 @@ msgstr "Link erfolgreich aktualisiert."
 msgid "Link saved successfully."
 msgstr "Link erfolgreich gespeichert."
 
+msgid "The link could not be saved. Please deactivate and reactivate the plugin once, then try again."
+msgstr "Der Link konnte nicht gespeichert werden. Bitte das Plugin einmal deaktivieren und wieder aktivieren, dann erneut versuchen."
+
 msgid "Invalid link ID."
 msgstr "Ungültige Link-ID."
+
+msgid "The link could not be deleted."
+msgstr "Der Link konnte nicht gelöscht werden."
 
 msgid "Link deleted."
 msgstr "Link gelöscht."
 
-msgid "Link not found."
-msgstr "Link nicht gefunden."
+msgid "No links to export."
+msgstr "Keine Links zum Exportieren."
 
-# Cron emails
-msgid "[Linktrade Monitor] %d links expiring soon"
-msgstr "[Linktrade Monitor] %d Links laufen bald ab"
+msgid "No links selected."
+msgstr "Keine Links markiert."
 
-msgid "The following links will expire in the next %d days:"
-msgstr "Folgende Links laufen in den nächsten %d Tagen ab:"
+msgid "The partner page could not be read, so the link is not verified yet."
+msgstr "Die Partnerseite konnte nicht gelesen werden, der Link ist deshalb noch nicht bestätigt."
 
-msgid "- %1$s: %2$s (%3$d days remaining)"
-msgstr "- %1$s: %2$s (noch %3$d Tage)"
+msgid "The link to you is online."
+msgstr "Der Link zu dir ist online."
 
-# Link checker
+msgid "The link to you is there, but devalued: %s."
+msgstr "Der Link zu dir ist da, aber entwertet: %s."
+
+msgid "No link to your page was found on the partner page."
+msgstr "Auf der Partnerseite wurde kein Link zu deiner Seite gefunden."
+
+msgid "Not checked yet."
+msgstr "Noch nicht geprüft."
+
+msgid "Your own page could not be read."
+msgstr "Deine eigene Seite konnte nicht gelesen werden."
+
+msgid "Your link to the partner is missing."
+msgstr "Dein Link zum Partner fehlt."
+
+msgid "Your link to the partner is online."
+msgstr "Dein Link zum Partner ist online."
+
+msgid "Their link to you"
+msgstr "Sein Link zu dir"
+
+msgid "Your link to them"
+msgstr "Dein Link zu ihm"
+
+msgid "Could not be read"
+msgstr "Nicht lesbar"
+
+msgid "Link found"
+msgstr "Link gefunden"
+
+msgid "Hello,"
+msgstr "Hallo,"
+
+msgid "I noticed that the link on %1$s to %2$s is no longer there."
+msgstr "mir ist aufgefallen, dass der Link auf %1$s zu %2$s nicht mehr vorhanden ist."
+
+msgid "My check has been reporting it as missing since %s."
+msgstr "Meine Prüfung meldet ihn seit dem %s als fehlend."
+
+msgid "I noticed that the link on %1$s to %2$s is now set to: %3$s."
+msgstr "mir ist aufgefallen, dass der Link auf %1$s zu %2$s jetzt so gesetzt ist: %3$s."
+
+msgid "We had agreed on a normal, followed link on a page that search engines may index."
+msgstr "Vereinbart war ein normaler Link ohne nofollow auf einer Seite, die Suchmaschinen aufnehmen dürfen."
+
+msgid "I noticed that the link on %1$s now points to %2$s. We had agreed on %3$s."
+msgstr "mir ist aufgefallen, dass der Link auf %1$s jetzt auf %2$s zeigt. Vereinbart war %3$s."
+
+msgid "I noticed that the link on %1$s now reads \"%2$s\". We had agreed on the text \"%3$s\"."
+msgstr "mir ist aufgefallen, dass der Link auf %1$s jetzt „%2$s“ lautet. Vereinbart war der Text „%3$s“."
+
+msgid "There is nothing to complain about for this link."
+msgstr "Bei diesem Link gibt es nichts zu reklamieren."
+
+msgid "My link to you is still in place: %s"
+msgstr "Mein Link zu dir steht weiterhin: %s"
+
+msgid "Was that intended, or did it happen during a change to your site? It would be great if you could restore it."
+msgstr "War das Absicht, oder ist es bei einem Umbau deiner Seite passiert? Es wäre schön, wenn du ihn wieder einsetzen könntest."
+
+msgid "Thank you and best regards"
+msgstr "Danke und viele Grüße"
+
+msgid "Enter the partner page first."
+msgstr "Trag zuerst die Partnerseite ein."
+
+msgid "No link to %s found in your published posts, pages, menus and widgets. A link that your theme writes into a template is not searched: enter it by hand."
+msgstr "In deinen veröffentlichten Beiträgen, Seiten, Menüs und Widgets wurde kein Link zu %s gefunden. Ein Link, den dein Theme in eine Vorlage schreibt, wird nicht durchsucht: Trag ihn von Hand ein."
+
+msgid "There is no valid notification address. Enter one and save the settings first."
+msgstr "Es gibt keine gültige Benachrichtigungsadresse. Trag eine ein und speichere zuerst die Einstellungen."
+
+msgid "[%s] Linktrade Monitor test email"
+msgstr "[%s] Testmail von Linktrade Monitor"
+
+msgid "This is a test. If you can read it, Linktrade Monitor can reach you when a link disappears or changes."
+msgstr "Das ist ein Test. Wenn du das lesen kannst, erreicht dich Linktrade Monitor, sobald ein Link verschwindet oder sich ändert."
+
+msgid "WordPress could not hand the email over for sending. This site may not be set up to send mail: ask your host or use an SMTP plugin."
+msgstr "WordPress konnte die E-Mail nicht zum Versand übergeben. Vielleicht ist diese Website nicht für den Mailversand eingerichtet: Frag deinen Hoster oder nutze ein SMTP-Plugin."
+
+msgid "Test email sent to %s. Look in the spam folder too if it does not arrive."
+msgstr "Testmail an %s gesendet. Sieh auch im Spam-Ordner nach, falls sie nicht ankommt."
+
+msgid "Menu"
+msgstr "Menü"
+
+msgid "Widget or footer block"
+msgstr "Widget oder Footer-Block"
+
+msgid "Could not read file."
+msgstr "Datei konnte nicht gelesen werden."
+
+msgid "No file uploaded."
+msgstr "Keine Datei hochgeladen."
+
+msgid "CSV file must contain a header row and at least one data row."
+msgstr "CSV-Datei muss eine Kopfzeile und mindestens eine Datenzeile enthalten."
+
+msgid "Required field missing: %s"
+msgstr "Pflichtfeld fehlt: %s"
+
+msgid "Line %1$d: %2$d columns instead of %3$d."
+msgstr "Zeile %1$d: %2$d Spalten statt %3$d."
+
+msgid "Line %d: name, partner page or target page is missing or not a web address."
+msgstr "Zeile %d: Name, Partnerseite oder Zielseite fehlt oder ist keine Webadresse."
+
+msgid "Line %d: could not be saved."
+msgstr "Zeile %d: konnte nicht gespeichert werden."
+
+msgid "New links in this file: %1$d. Already in your list and skipped: %2$d. Lines with a problem, left out: %3$d."
+msgstr "Neue Links in dieser Datei: %1$d. Schon in deiner Liste und übersprungen: %2$d. Zeilen mit einem Problem, ausgelassen: %3$d."
+
+msgid "Import complete: %1$d imported, %2$d skipped (duplicates), %3$d errors."
+msgstr "Import abgeschlossen: %1$d importiert, %2$d übersprungen (Duplikate), %3$d Fehler."
+
+msgid "The new links are being checked in the background."
+msgstr "Die neuen Links werden im Hintergrund geprüft."
+
+msgid "Page could not be read (HTTP %d), please verify by hand"
+msgstr "Seite konnte nicht gelesen werden (HTTP %d), bitte von Hand prüfen"
+
+msgid "Bot protection instead of page content, please verify by hand"
+msgstr "Bot-Schutz statt Seiteninhalt, bitte von Hand prüfen"
+
 msgid "Empty response from server"
 msgstr "Leere Antwort vom Server"
+
+msgid "The PHP extension \"dom\" is missing on this server, links cannot be checked"
+msgstr "Auf diesem Server fehlt die PHP-Erweiterung „dom“, Links können nicht geprüft werden"
+
+msgid "Link found, but it points to %s"
+msgstr "Link gefunden, er zeigt aber auf %s"
+
+msgid "The page source contains no links at all, it is probably built by JavaScript. Please verify by hand"
+msgstr "Der Quelltext der Seite enthält gar keine Links, sie wird vermutlich per JavaScript aufgebaut. Bitte von Hand prüfen"
+
+msgid "Page is too large to be checked completely, please verify by hand"
+msgstr "Seite ist zu groß für eine vollständige Prüfung, bitte von Hand prüfen"
 
 msgid "Link to target page not found"
 msgstr "Link zur Zielseite nicht gefunden"
 
-# Security
-msgid "Security check failed."
-msgstr "Sicherheitsprüfung fehlgeschlagen."
+msgid "Only http and https addresses can be checked"
+msgstr "Geprüft werden können nur Adressen mit http oder https"
 
-# Pro hint
-msgid "Go Pro"
-msgstr "Pro Version"
+msgid "No links yet. Add the first page that links to you and it is checked right away."
+msgstr "Noch keine Links. Trag die erste Seite ein, die auf dich verlinkt, sie wird sofort geprüft."
 
-msgid "Need more features? Check out %1$sLinktrade Monitor Pro%2$s for unlimited links, daily checks, and more."
-msgstr "Mehr Features benötigt? Entdecke %1$sLinktrade Monitor Pro%2$s für unbegrenzte Links, tägliche Prüfungen und mehr."
+msgid "No link is missing or devalued."
+msgstr "Kein Link fehlt oder ist entwertet."
+
+msgid "Next check: %s."
+msgstr "Nächste Prüfung: %s."
+
+msgid "Open Linktrade Monitor"
+msgstr "Linktrade Monitor öffnen"
+
+msgid "Linktrade Monitor: link partners"
+msgstr "Linktrade Monitor: Linkpartner"
+
+msgid "Linktrade Monitor: the contact address was removed. The monitored links, the partner name and your notes about them were kept, because they describe a web page and an agreement."
+msgstr "Linktrade Monitor: Die Kontaktadresse wurde entfernt. Die überwachten Links, der Partnername und deine Notizen dazu bleiben erhalten, weil sie eine Webseite und eine Vereinbarung beschreiben."
+
+msgid "Linktrade Monitor stores the link partners you enter (name, optional contact email address, web addresses, notes) in the database of this website. It does not collect data about visitors and sets no cookies. To check a link, this website requests the partner page you entered. No data is sent to any other service."
+msgstr "Linktrade Monitor speichert die Linkpartner, die du einträgst (Name, optional eine Kontaktadresse, Webadressen, Notizen), in der Datenbank dieser Website. Es erhebt keine Daten über Besucher und setzt keine Cookies. Um einen Link zu prüfen, ruft diese Website die eingetragene Partnerseite ab. An andere Dienste werden keine Daten gesendet."
+
+msgid "Page checked: %s"
+msgstr "Geprüfte Seite: %s"
+
+msgid "Link expected to: %s"
+msgstr "Erwarteter Link zu: %s"
+
+msgid "Last check: %1$s, HTTP status %2$d"
+msgstr "Letzte Prüfung: %1$s, HTTP-Status %2$d"
+
+msgid "Result: no link to the expected page was found."
+msgstr "Ergebnis: Es wurde kein Link zur erwarteten Seite gefunden."
+
+msgid "First reported missing: %s"
+msgstr "Erstmals als fehlend gemeldet: %s"
+
+msgid "Last seen on the page: %1$s%2$s"
+msgstr "Zuletzt auf der Seite gesehen: %1$s%2$s"
+
+msgid "Result: the link is there, but set to: %s"
+msgstr "Ergebnis: Der Link ist vorhanden, aber so gesetzt: %s"
+
+msgid "Result: the link points to another page: %s"
+msgstr "Ergebnis: Der Link zeigt auf eine andere Seite: %s"
+
+msgid "Link to you now points to another page"
+msgstr "Link zu dir zeigt jetzt auf eine andere Seite"
+
+msgid "Anchor text of the link to you has changed"
+msgstr "Ankertext des Links zu dir hat sich geändert"
+
+msgid "Link to you is now nofollow"
+msgstr "Link zu dir ist jetzt nofollow"
+
+msgid "Link to you is now marked sponsored"
+msgstr "Link zu dir ist jetzt als sponsored markiert"
+
+msgid "Partner page is now noindex"
+msgstr "Partnerseite steht jetzt auf noindex"
+
+msgid "Link to you is back"
+msgstr "Link zu dir ist wieder da"
+
+msgid "Your link to the partner is back"
+msgstr "Dein Link zum Partner ist wieder da"
+
+msgid "[%s] Link check: no changes"
+msgstr "[%s] Linkprüfung: keine Änderungen"
+
+msgid "The weekly link check found no changes."
+msgstr "Die wöchentliche Linkprüfung hat keine Änderungen gefunden."
+
+msgid "The weekly link check found these changes:"
+msgstr "Die wöchentliche Linkprüfung hat diese Änderungen gefunden:"
+
+msgid "Checked: %1$d. Online: %2$d. Warnings: %3$d. Offline: %4$d. Could not be read: %5$d."
+msgstr "Geprüft: %1$d. Online: %2$d. Warnungen: %3$d. Offline: %4$d. Nicht lesbar: %5$d."
+
+msgid "These link agreements end within the next %d days:"
+msgstr "Diese Linkvereinbarungen enden in den nächsten %d Tagen:"
+
+msgid "- %1$s: %2$s (%3$d days left)"
+msgstr "- %1$s: %2$s (noch %3$d Tage)"
+
+msgid "Linktrade Monitor link check"
+msgstr "Linkprüfung von Linktrade Monitor"
+
+msgid "The weekly link check is scheduled"
+msgstr "Die wöchentliche Linkprüfung ist eingeplant"
+
+msgid "Linktrade Monitor checks your links once a week in the background."
+msgstr "Linktrade Monitor prüft deine Links einmal pro Woche im Hintergrund."
+
+msgid "The weekly link check is not scheduled"
+msgstr "Die wöchentliche Linkprüfung ist nicht eingeplant"
+
+msgid "WordPress could not schedule the weekly link check, so your links are not being checked. Deactivate and reactivate Linktrade Monitor. If that does not help, ask your host whether WP-Cron is available."
+msgstr "WordPress konnte die wöchentliche Linkprüfung nicht einplanen, deine Links werden deshalb nicht geprüft. Deaktiviere Linktrade Monitor und aktiviere es wieder. Hilft das nicht, frage deinen Hoster, ob WP-Cron verfügbar ist."
+
+msgid "The weekly link check is overdue"
+msgstr "Die wöchentliche Linkprüfung ist überfällig"
+
+msgid "The link check was due more than a day ago and has not run. WP-Cron only runs when somebody visits the site. On a site with few visitors, set up a real cron job that calls wp-cron.php."
+msgstr "Die Linkprüfung war vor mehr als einem Tag fällig und ist nicht gelaufen. WP-Cron läuft nur, wenn jemand die Website besucht. Richte bei wenigen Besuchern einen echten Cronjob ein, der wp-cron.php aufruft."
+
+msgid "%d day left"
+msgstr "noch %d Tag"
+
+msgid "%d link to go"
+msgstr "noch %d Link"
+
+msgid "%d links to go"
+msgstr "noch %d Links"
+
+msgid "and %d more in the list"
+msgstr "und %d weitere in der Liste"
+
+msgid "%d link"
+msgstr "%d Link"
+
+msgid "%d links"
+msgstr "%d Links"
+
+msgid "%d link deleted."
+msgstr "%d Link gelöscht."
+
+msgid "%d links deleted."
+msgstr "%d Links gelöscht."
+
+msgid "%d link needs attention"
+msgstr "%d Link braucht deine Aufmerksamkeit"
+
+msgid "%d links need attention"
+msgstr "%d Links brauchen deine Aufmerksamkeit"
+
+msgid "%d link is being monitored."
+msgstr "%d Link wird überwacht."
+
+msgid "%d links are being monitored."
+msgstr "%d Links werden überwacht."
+
+msgid "[%1$s] Link check: %2$d change"
+msgstr "[%1$s] Linkprüfung: %2$d Änderung"
+
+msgid "[%1$s] Link check: %2$d changes"
+msgstr "[%1$s] Linkprüfung: %2$d Änderungen"
+
+msgid "[%1$s] %2$d link agreement expires soon"
+msgstr "[%1$s] %2$d Linkvereinbarung endet bald"
+
+msgid "[%1$s] %2$d link agreements expire soon"
+msgstr "[%1$s] %2$d Linkvereinbarungen enden bald"
+

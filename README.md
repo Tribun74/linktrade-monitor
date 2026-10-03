@@ -8,15 +8,16 @@ Automatically monitor your backlink exchanges. LinkTrade Monitor checks if your 
 
 ## Features
 
-- Automatic backlink verification
-- Email alerts when links go missing
-- Dashboard with link status overview
-- Bulk import link partners
-- Check scheduling (daily/weekly)
-- Dofollow/nofollow detection
-- HTTP status code monitoring
-- German translation included
-- GDPR-friendly (checks run on your server)
+- Checks **both directions** of a link exchange: does the partner still link to you, and do you still link to the partner
+- Detects removed links, links that moved to another page, `rel="nofollow"`, `rel="sponsored"`, `noindex` pages, redirects and HTTP status
+- Anchor text is recorded and compared
+- E-mail with every change after a check, nothing when nothing changed
+- History of every check and a log of every status change
+- Weekly automatic check, a check per link on demand, every link checked right after saving
+- Three categories: exchange, paid, free
+- Site Health test, dashboard widget, privacy exporter and eraser, WP-CLI commands
+- English and German
+- GDPR-friendly: checks run on your server, no external service
 
 ## Installation
 
@@ -36,17 +37,17 @@ Or install directly from [WordPress.org](https://wordpress.org/plugins/linktrade
 
 ## Pro Version
 
-**[LinkTrade Monitor Pro](https://www.3task.de/linktrade-monitor-pro/)** unlocks advanced features:
+**[LinkTrade Monitor Pro](https://www.3task.de/en/linktrade-monitor/)** adds what agencies and portfolio owners need:
 
-- Unlimited link partners (free: 10)
-- Anchor text monitoring
-- Link position tracking (header/content/footer/sidebar)
-- Historical link data & charts
-- Competitor backlink alerts
-- CSV export & reporting
-- Priority support
+- Projects, one per domain, with attention and a monthly report per project
+- Partners: several agreements with one person, filtered together
+- Mixed packages (exchange plus money) and "not agreed" per direction
+- Cost and value per link with a return-on-investment tab
+- Hourly, twice daily, daily or weekly checks and a "check all now" button
+- Slack and webhook notifications
+- Tags, CSV import with preview, CSV export, sitemap picker
 
-**[Upgrade to Pro](https://www.3task.de/linktrade-monitor-pro/)**
+**[Learn more](https://www.3task.de/en/linktrade-monitor/)**
 
 ## Contributing
 
