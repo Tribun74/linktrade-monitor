@@ -398,6 +398,12 @@ class Linktrade_Link_Checker {
 
 		$target_key = $this->get_path_key( $target_url );
 
+		// A target without a path is the home page and stands for the whole
+		// site: whoever enters "example.org" means "a link to my site", so a
+		// link to any page of that domain fulfils it. Without this, every deep
+		// link would be reported as "points to another page".
+		$whole_site = ( '' === $target_key );
+
 		$previous_libxml = libxml_use_internal_errors( true );
 		$dom             = new DOMDocument();
 		$dom->loadHTML( '<?xml encoding="UTF-8">' . $html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
@@ -436,7 +442,7 @@ class Linktrade_Link_Checker {
 
 			// Same host: is it the exact target page? Path compared as a whole,
 			// so "/page" does not match "/page-2" or "/page/sub".
-			$exact = ( $this->get_path_key( $href ) === $target_key );
+			$exact = $whole_site || ( $this->get_path_key( $href ) === $target_key );
 
 			if ( $exact ) {
 				$rel   = preg_split( '/\s+/', strtolower( $link->getAttribute( 'rel' ) ), -1, PREG_SPLIT_NO_EMPTY );

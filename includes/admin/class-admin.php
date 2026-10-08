@@ -1453,6 +1453,12 @@ if ( ! class_exists( 'Linktrade_Admin' ) ) {
 		private function render_import_export_tab() {
 			?>
 		<div class="linktrade-import-export">
+			<!-- Where the data is stored: information only -->
+			<div class="linktrade-card lt-data-home">
+				<h3><span class="dashicons dashicons-database" aria-hidden="true"></span> <?php esc_html_e( 'Where your data is stored', 'linktrade-monitor' ); ?></h3>
+				<p class="description"><?php esc_html_e( 'Everything you enter is stored in the database of this site: links, partners, notes and the history of every check. A link check requests only the pages you entered. Apart from the notification emails to your own address, nothing is sent to 3task or anyone else.', 'linktrade-monitor' ); ?></p>
+			</div>
+
 			<!-- Export Section -->
 			<div class="linktrade-card">
 				<h3><?php esc_html_e( 'Export Links', 'linktrade-monitor' ); ?></h3>

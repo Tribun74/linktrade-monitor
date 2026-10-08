@@ -3,7 +3,7 @@
  * Plugin Name: Linktrade Monitor: Backlink Tracker for Link Exchanges
  * Plugin URI: https://www.3task.de/en/linktrade-monitor/
  * Description: Monitors your backlinks and link exchanges in both directions. Weekly checks, email alerts when a link disappears or turns nofollow, check history. Self-hosted.
- * Version: 1.4.0
+ * Version: 1.4.1
  * Author: 3task
  * Author URI: https://www.3task.de
  * License: GPL v2 or later
@@ -65,7 +65,7 @@ if ( linktrade_pro_is_active() ) {
 }
 
 // Plugin constants.
-define( 'LINKTRADE_VERSION', '1.4.0' );
+define( 'LINKTRADE_VERSION', '1.4.1' );
 define( 'LINKTRADE_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'LINKTRADE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'LINKTRADE_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );

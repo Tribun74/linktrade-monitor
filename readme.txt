@@ -4,17 +4,28 @@ Tags: backlink monitor, backlink checker, link exchange, reciprocal links, backl
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Backlink monitor for link exchanges: checks both directions weekly, emails you when a link is removed or turns nofollow. Self-hosted, no account.
+Backlink monitor for link exchanges: emails you when a partner removes your link or adds nofollow. Your partner list stays on your server, no account.
 
 == Description ==
 
 A link exchange is easy to agree and easy to forget. Months later the partner has redesigned, the link is gone or quietly carries `rel="nofollow"`, and nobody notices. The same happens on your own side: a relaunch drops the link you promised, and the partner finds out before you do.
 
-Linktrade Monitor is a backlink monitor built for link exchanges, paid links and guest posts. Add the partner page once. The plugin then checks every week whether their link to you is still there, whether it turned nofollow or sponsored, whether the page went noindex, and whether your link to them is still live. When something changes, you get one email with all changes. Everything runs inside your WordPress site: no account, no API key, no third-party service.
+Linktrade Monitor is a backlink monitor built for link exchanges, paid links and guest posts. Add the partner page once. The plugin then checks every week whether their link to you is still there, whether it turned nofollow or sponsored, whether the page went noindex, and whether your link to them is still live. When something changes, you get one email with all changes.
+
+= Your link partners stay on your server =
+
+Most backlink monitors are online services. You open an account, enter every partner, the deal you made and the price you paid, and that list then lives on the provider's servers. Linktrade Monitor works the other way round. It is a plugin, and everything you enter is stored in your own WordPress database.
+
+* **No account, no API key, no subscription.** Install it and start.
+* **One kind of outgoing request.** To check a link, your server fetches the partner page you entered (and, for exchanges, your own page), the same way a browser does. Nothing else is sent anywhere.
+* **Reports stay with you.** Emails go to the address you set, through your site's own mail setup.
+* **Your deals are your business.** Partners, agreements, prices and notes are visible to people who can log into your WordPress, and you decide who that is.
+* **In and out by CSV.** Import an existing list, export everything at any time. Deleting the plugin removes its tables.
+* **Check it yourself.** The source code is public on [GitHub](https://github.com/Tribun74/linktrade-monitor).
 
 = What it does =
 
@@ -97,16 +108,24 @@ WordPress runs scheduled tasks only when somebody visits the site. On a site wit
 
 The Fairness Score shows if both sides of a link exchange are holding up their end:
 
-* **100%** - Both links are online and healthy
-* **70%** - Their link is there, but on a page marked noindex
-* **60%** - Your link is dofollow, partner's is nofollow
-* **50%** - Both links are offline
-* **25%** - Your link to them is gone, their link to you is still online
-* **0%** - Your link is online, but partner removed theirs
+* **100%**: Both links are online and healthy
+* **70%**: Their link is there, but on a page marked noindex
+* **60%**: Your link is dofollow, partner's is nofollow
+* **50%**: Both links are offline
+* **25%**: Your link to them is gone, their link to you is still online
+* **0%**: Your link is online, but partner removed theirs
 
-= Is my data secure? =
+= Where is my data stored? =
 
-All your link data is stored in your own WordPress database. There is no account, no API key and no third-party service. To check a link, your server requests the partner page you entered (and, for exchanges, your own page), the same way a browser would. Nothing else is sent anywhere.
+In your own WordPress database. Partners, agreements, prices, notes and the history of every check are kept there and nowhere else. There is no account, no API key and no third-party service.
+
+= Does the plugin send anything to outside servers? =
+
+Only the checks themselves. To check a link, your server requests the partner page you entered (and, for exchanges, your own page), the same way a browser would. The notification email is sent through your site's own mail setup to the address you set. Nothing else is sent anywhere, and nothing is sent to 3task.
+
+= What happens to my data if I remove the plugin? =
+
+Deactivating keeps everything. Deleting the plugin removes its tables and settings, unless Linktrade Monitor Pro is still installed, which uses the same tables. Export a CSV first if you want to keep the list.
 
 = Can I track nofollow links? =
 
@@ -114,9 +133,9 @@ Yes. Linktrade Monitor detects nofollow, sponsored and ugc on the link and noind
 
 = What's the difference between Exchange, Paid, and Free links? =
 
-* **Exchange** - You link to them, they link to you (tracked with Fairness Score)
-* **Paid** - You pay for the backlink (tracked with expiration reminders)
-* **Free** - Guest posts, mentions, directories (no reciprocal tracking needed)
+* **Exchange**: You link to them, they link to you (tracked with Fairness Score)
+* **Paid**: You pay for the backlink (tracked with expiration reminders)
+* **Free**: Guest posts, mentions, directories (no reciprocal tracking needed)
 
 = Does it work with other SEO plugins? =
 
@@ -141,6 +160,11 @@ Yes. Linktrade Monitor Pro adds daily and hourly checks, projects for several we
 7. Who do you already link to? One search lists the outside domains of your site
 
 == Changelog ==
+
+= 1.4.1 =
+* Fixed: a link to any page of your site counted as "points to a different page" when the target you entered was your home page. A target without a path now means the whole site, as it did before 1.4.0.
+* New: the Import / Export tab says where your data is stored and what the plugin sends out.
+* Changed: the readme now explains where your data is stored and which requests the plugin makes.
 
 = 1.4.0 =
 * New: links are checked every week instead of once a month, in small portions that continue until every link is done. Before, one run checked at most 50 links and stopped.
@@ -225,7 +249,7 @@ Yes. Linktrade Monitor Pro adds daily and hourly checks, projects for several we
   is written, so a single hiccup never looks like a removed link.
 
 = 1.3.1 =
-* New: Compact 2-column form layout - reduces scrolling by 60%
+* New: Compact 2-column form layout, reduces scrolling by 60%
 * New: Side-by-side Incoming/Outgoing link sections with visual indicators
 * New: 3-column partner info row for better space usage
 * Improved: Visual arrows (← / →) show link direction clearly
@@ -233,9 +257,9 @@ Yes. Linktrade Monitor Pro adds daily and hourly checks, projects for several we
 * Improved: Responsive layout adapts to tablet and mobile screens
 
 = 1.3.0 =
-* New: Link Health Score - visual 0-100 score showing overall link quality at a glance
-* New: CSV Export - download all your links as a CSV file for backup or analysis
-* New: CSV Import - bulk import links from CSV files with duplicate detection
+* New: Link Health Score: visual 0-100 score showing overall link quality at a glance
+* New: CSV Export: download all your links as a CSV file for backup or analysis
+* New: CSV Import: bulk import links from CSV files with duplicate detection
 * New: Import/Export tab with complete field documentation
 * Improved: Health Score calculation based on status, attributes, DR, age, and fairness
 * Improved: Table now shows Health Score column for quick quality assessment
@@ -267,7 +291,7 @@ Yes. Linktrade Monitor Pro adds daily and hourly checks, projects for several we
 * Improved: Visual DR difference indicators (+green for benefit, -red for partner benefit)
 
 = 1.1.0 =
-* New: Exchange start date tracking - know when each link exchange began
+* New: Exchange start date tracking, know when each link exchange began
 * New: Expiration date support for time-limited exchanges (e.g. 1 year agreements)
 * New: Visual expiration indicators in link overview (expired, expiring soon)
 * Improved: Link overview now shows start date and expiration status
@@ -284,6 +308,9 @@ Yes. Linktrade Monitor Pro adds daily and hourly checks, projects for several we
 * Multi-language support (English, German)
 
 == Upgrade Notice ==
+
+= 1.4.1 =
+Stops a false alarm when your target is the home page and the partner links to one of your other pages.
 
 = 1.4.0 =
 Weekly checks, an email when a link disappears or turns nofollow, check history and a dashboard that shows what needs your attention.

@@ -1,6 +1,6 @@
-# LinkTrade Monitor – Backlink Monitoring for WordPress
+# LinkTrade Monitor: Backlink Monitoring for WordPress
 
-Automatically monitor your backlink exchanges. LinkTrade Monitor checks if your link partners still link back to you — and alerts you when links disappear.
+Automatically monitor your backlink exchanges. LinkTrade Monitor checks if your link partners still link back to you and alerts you when links disappear. Your partner list stays on your own server: no account, no cloud.
 
 [![WordPress Plugin Version](https://img.shields.io/wordpress/plugin/v/linktrade-monitor)](https://wordpress.org/plugins/linktrade-monitor/)
 [![WordPress Plugin Downloads](https://img.shields.io/wordpress/plugin/dt/linktrade-monitor)](https://wordpress.org/plugins/linktrade-monitor/)
@@ -17,7 +17,7 @@ Automatically monitor your backlink exchanges. LinkTrade Monitor checks if your 
 - Three categories: exchange, paid, free
 - Site Health test, dashboard widget, privacy exporter and eraser, WP-CLI commands
 - English and German
-- GDPR-friendly: checks run on your server, no external service
+- Your data stays on your server: partners, agreements, prices and notes are stored in your WordPress database. A check only requests the partner page you entered, and nothing is sent to 3task
 
 ## Installation
 
@@ -60,7 +60,7 @@ Contributions are welcome! Please open an issue first to discuss your proposed c
 
 ## License
 
-GPL-2.0 – see [LICENSE](LICENSE) for details.
+GPL-2.0, see [LICENSE](LICENSE) for details.
 
 ---
 

@@ -1964,3 +1964,12 @@ input[type="file"]:hover {
 .lt-onboarding-btn:hover { background: #065f46; }
 
 .lt-attention-more { justify-content: flex-start; }
+
+/* Where your data is stored (1.4.1) */
+.linktrade-card.lt-data-home {
+    border-left: 4px solid #2271b1;
+}
+.linktrade-card.lt-data-home h3 .dashicons {
+    color: #2271b1;
+    vertical-align: text-bottom;
+}

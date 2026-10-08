@@ -13,6 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 return array(
 	'Linktrade Monitor Pro is active and includes everything the free plugin does. The free plugin is switched off while Pro runs. Your links are kept, whichever of the two you remove.' => 'Linktrade Monitor Pro ist aktiv und enthält alles, was das kostenlose Plugin kann. Das kostenlose Plugin ist abgeschaltet, solange Pro läuft. Deine Links bleiben erhalten, egal welches der beiden du entfernst.',
 	'Settings'                                             => 'Einstellungen',
+	'Where your data is stored'                            => 'Wo deine Daten liegen',
+	'Everything you enter is stored in the database of this site: links, partners, notes and the history of every check. A link check requests only the pages you entered. Apart from the notification emails to your own address, nothing is sent to 3task or anyone else.' => 'Alles, was du einträgst, liegt in der Datenbank dieser Website: Links, Partner, Notizen und der Verlauf jeder Prüfung. Eine Prüfung ruft nur die Seiten ab, die du eingetragen hast. Außer den Benachrichtigungen an deine eigene Adresse geht nichts an 3task oder sonst jemanden.',
 	'Pro version'                                          => 'Pro-Version',
 	'Linktrade Monitor'                                    => 'Linktrade Monitor',
 	'Linktrade'                                            => 'Linktrade',

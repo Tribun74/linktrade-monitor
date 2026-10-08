@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Linktrade Monitor 1.4.0\n"
+"Project-Id-Version: Linktrade Monitor 1.4.1\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -12,6 +12,12 @@ msgstr "Linktrade Monitor Pro ist aktiv und enthält alles, was das kostenlose P
 
 msgid "Settings"
 msgstr "Einstellungen"
+
+msgid "Where your data is stored"
+msgstr "Wo deine Daten liegen"
+
+msgid "Everything you enter is stored in the database of this site: links, partners, notes and the history of every check. A link check requests only the pages you entered. Apart from the notification emails to your own address, nothing is sent to 3task or anyone else."
+msgstr "Alles, was du einträgst, liegt in der Datenbank dieser Website: Links, Partner, Notizen und der Verlauf jeder Prüfung. Eine Prüfung ruft nur die Seiten ab, die du eingetragen hast. Außer den Benachrichtigungen an deine eigene Adresse geht nichts an 3task oder sonst jemanden."
 
 msgid "Pro version"
 msgstr "Pro-Version"
